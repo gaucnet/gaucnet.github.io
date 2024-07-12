@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on chao blog</title><link>https://gaucnet.github.io/tags/python/</link><description>Recent content in Python on chao blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>chao</copyright><lastBuildDate>Thu, 04 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://gaucnet.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>批量修改错误数据</title><link>https://gaucnet.github.io/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/</link><pubDate>Thu, 04 Jul 2024 00:00:00 +0000</pubDate><guid>https://gaucnet.github.io/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/</guid><description>&lt;h2 id="问题">问题
-&lt;/h2>&lt;p>割接时资管平台下发网管数据，ONT的配置缺少部分字段，会导致中兴C600 OLT上SFU设备用户mac起不来，无法正常上网引起投诉。&lt;/p>
+&lt;/h2>&lt;p>割接时资管平台下发的网管数据，ONT配置缺少部分字段，会导致中兴C600 OLT上SFU设备用户mac起不来，无法正常上网引起投诉。&lt;/p>
 &lt;h3 id="下发的ont数据">下发的ONT数据
 &lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
