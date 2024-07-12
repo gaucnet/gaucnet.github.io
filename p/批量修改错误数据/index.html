@@ -64,7 +64,7 @@
 </span></span><span class=line><span class=cl>  service Tl1DefaultCreate gemport 1 vlan 4
 </span></span><span class=line><span class=cl>  vlan port eth_0/1 mode tag vlan 4
 </span></span></code></pre></td></tr></table></div></div><p>修改后SFU设备能正常获取到MAC，正常上网。
-<img src=/c600vlan4/image-4.png loading=lazy alt="alt text"></p><h2 id=利用python批量修改>利用Python批量修改</h2><p>通过Python自动识别割接表中C600 PON口及PON口下的SFU设备的id，批量生成修改脚本。</p><h3 id=逻辑>逻辑</h3><p>登录OLT后通过show running-config-interface gpon_olt-x/x/x命令列出所有PON口下ont设备。
+<img src=/image-4.png loading=lazy alt="alt text"></p><h2 id=利用python批量修改>利用Python批量修改</h2><p>通过Python自动识别割接表中C600 PON口及PON口下的SFU设备的id，批量生成修改脚本。</p><h3 id=逻辑>逻辑</h3><p>登录OLT后通过show running-config-interface gpon_olt-x/x/x命令列出所有PON口下ont设备。
 其中使用<strong>GENERAL1FE模板</strong>的都是SFU设备，提取其ONT ID后批量生成修改脚本。</p><blockquote><p>show running-config-interface gpon_olt-1/1/8</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
@@ -573,7 +573,7 @@
 </span></span><span class=line><span class=cl>    <span class=c1># 这将捕获所有异常，并使用 traceback 打印出错误信息。然后程序将等待用户按下任意键，以便您可以查看错误信息并解决问题。</span>
 </span></span><span class=line><span class=cl>    <span class=n>traceback</span><span class=o>.</span><span class=n>print_exc</span><span class=p>()</span>
 </span></span><span class=line><span class=cl>    <span class=nb>input</span><span class=p>(</span><span class=s2>&#34;Press any key to exit...&#34;</span><span class=p>)</span>
-</span></span></code></pre></td></tr></table></div></div><h3 id=运行>运行</h3><p><img src=/c600vlan4/image-3.png loading=lazy alt="alt text"></p><h3 id=加上ui界面打包exe>加上ui界面打包exe</h3><p><img src=/c600vlan4/image-5.png loading=lazy alt="alt text"></p><h3 id=相关文件>相关文件</h3><p><a class=link href=https://wwi.lanzoup.com/b0izos0zg target=_blank rel=noopener>https://wwi.lanzoup.com/b0izos0zg</a>
+</span></span></code></pre></td></tr></table></div></div><h3 id=运行>运行</h3><p><img src=/image-3.png loading=lazy alt="alt text"></p><h3 id=加上ui界面打包exe>加上ui界面打包exe</h3><p><img src=/image-5.png loading=lazy alt="alt text"></p><h3 id=相关文件>相关文件</h3><p><a class=link href=https://wwi.lanzoup.com/b0izos0zg target=_blank rel=noopener>https://wwi.lanzoup.com/b0izos0zg</a>
 密码:<code>hpra</code></p></section><footer class=article-footer><section class=article-tags><a href=/tags/python/>Python</a>
 <a href=/tags/gpon/>Gpon</a>
 <a href=/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/>自动化</a>
