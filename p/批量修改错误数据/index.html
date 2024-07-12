@@ -1,0 +1,588 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="问题 割接时资管平台下发网管数据，ONT的配置缺少部分字段，会导致中兴C600 OLT上SFU设备用户mac起不来，无法正常上网引起投诉。 下发的"><title>批量修改错误数据</title>
+<link rel=canonical href=https://gaucnet.github.io/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/><link rel=stylesheet href=/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css><meta property='og:title' content="批量修改错误数据"><meta property='og:description' content="问题 割接时资管平台下发网管数据，ONT的配置缺少部分字段，会导致中兴C600 OLT上SFU设备用户mac起不来，无法正常上网引起投诉。 下发的"><meta property='og:url' content='https://gaucnet.github.io/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/'><meta property='og:site_name' content='chao blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Python'><meta property='article:tag' content='Gpon'><meta property='article:tag' content='自动化'><meta property='article:tag' content='数通'><meta property='article:published_time' content='2024-07-04T00:00:00+00:00'><meta property='article:modified_time' content='2024-07-04T00:00:00+00:00'><meta name=twitter:title content="批量修改错误数据"><meta name=twitter:description content="问题 割接时资管平台下发网管数据，ONT的配置缺少部分字段，会导致中兴C600 OLT上SFU设备用户mac起不来，无法正常上网引起投诉。 下发的"></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_3.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🎉</span></figure><div class=site-meta><h1 class=site-name><a href=/>chao blog</a></h1><h2 class=site-description>无限进步.✊</h2></div></header><ol class=menu-social><li><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com target=_blank title=Twitter rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=/%E5%85%B3%E4%BA%8E/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/links/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Links</span></a></li><li class=menu-bottom-section><ol class=menu><li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language title=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://gaucnet.github.io/ selected>中文</option><option value=https://gaucnet.github.io/en/>English</option></select></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#问题>问题</a><ol><li><a href=#下发的ont数据>下发的ONT数据</a></li><li><a href=#修改>修改</a></li><li><a href=#修改后的ont配置>修改后的ONT配置</a></li></ol></li><li><a href=#利用python批量修改>利用Python批量修改</a><ol><li><a href=#逻辑>逻辑</a></li><li><a href=#python脚本>python脚本</a><ol><li><a href=#识别割接表中c600的pon口>识别割接表中C600的PON口</a></li><li><a href=#匹配olt设备的管理ip>匹配OLT设备的管理IP</a></li><li><a href=#telnet登录设备执行命令>telnet登录设备执行命令</a></li><li><a href=#读取数据和数据清洗>读取数据和数据清洗</a></li></ol></li></ol></li><li><a href=#最后>最后</a><ol><li><a href=#完整的python代码>完整的python代码</a></li><li><a href=#运行>运行</a></li><li><a href=#加上ui界面打包exe>加上ui界面打包exe</a></li><li><a href=#相关文件>相关文件</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/>批量修改错误数据</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Jul 04, 2024</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 9 分钟</time></div></footer></div></header><section class=article-content><h2 id=问题>问题</h2><p>割接时资管平台下发网管数据，ONT的配置缺少部分字段，会导致中兴C600 OLT上SFU设备用户mac起不来，无法正常上网引起投诉。</p><h3 id=下发的ont数据>下发的ONT数据</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>NH_ZongHeLou4_C600(config)#show running-config-interface  gpon_onu-1/1/8:16
+</span></span><span class=line><span class=cl>!&lt;if-intf&gt;
+</span></span><span class=line><span class=cl>interface gpon_onu-1/1/8:16
+</span></span><span class=line><span class=cl>$
+</span></span><span class=line><span class=cl>!&lt;/if-intf&gt;
+</span></span><span class=line><span class=cl>!&lt;xpon&gt;
+</span></span><span class=line><span class=cl>interface gpon_onu-1/1/8:16
+</span></span><span class=line><span class=cl>  name ********
+</span></span><span class=line><span class=cl>  tcont 1 name Tl1DefaultCreate allocid 1783 profile 100M-UP
+</span></span><span class=line><span class=cl>  sn-bind disable
+</span></span><span class=line><span class=cl>  gemport 1 name Tl1DefaultCreate portid 1032 tcont 1
+</span></span><span class=line><span class=cl>$
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/1/8:16
+</span></span><span class=line><span class=cl>  service Tl1DefaultCreate gemport 1
+</span></span><span class=line><span class=cl>  vlan port eth_0/1 mode tag vlan 4
+</span></span><span class=line><span class=cl>$
+</span></span><span class=line><span class=cl>!&lt;/xpon&gt;
+</span></span></code></pre></td></tr></table></div></div><p>其中<strong>service Tl1DefaultCreate gemport 1</strong>缺少了vlan4</p><h3 id=修改>修改</h3><p>需先进入端口删除原有配置后，配置新的数据。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>pon-onu-mng gpon_onu-1/1/8:16
+</span></span><span class=line><span class=cl>  no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>  service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>  !
+</span></span></code></pre></td></tr></table></div></div><h3 id=修改后的ont配置>修改后的ONT配置</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>NH_ZongHeLou4_C600(config)#show running-config-in gpon_onu-1/1/8:16
+</span></span><span class=line><span class=cl>....省略
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/1/8:16
+</span></span><span class=line><span class=cl>  service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>  vlan port eth_0/1 mode tag vlan 4
+</span></span></code></pre></td></tr></table></div></div><p>修改后SFU设备能正常获取到MAC，正常上网。
+<img src=/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4.png width=571 height=277 srcset="/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_480x0_resize_box_3.png 480w, /p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_1024x0_resize_box_3.png 1024w" loading=lazy alt="alt text" class=gallery-image data-flex-grow=206 data-flex-basis=494px></p><h2 id=利用python批量修改>利用Python批量修改</h2><p>通过Python自动识别割接表中C600 PON口及PON口下的SFU设备的id，批量生成修改脚本。</p><h3 id=逻辑>逻辑</h3><p>登录OLT后通过show running-config-interface gpon_olt-x/x/x命令列出所有PON口下ont设备。
+其中使用<strong>GENERAL1FE模板</strong>的都是SFU设备，提取其ONT ID后批量生成修改脚本。</p><blockquote><p>show running-config-interface gpon_olt-1/1/8</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>CX_ZhangQiWanQiao3_C600(config)#show running-config-interface  gpon_olt-1/1/8
+</span></span><span class=line><span class=cl>!&lt;if-intf&gt;
+</span></span><span class=line><span class=cl>interface gpon_olt-1/1/8
+</span></span><span class=line><span class=cl>$
+</span></span><span class=line><span class=cl>!&lt;/if-intf&gt;
+</span></span><span class=line><span class=cl>!&lt;xpon&gt;
+</span></span><span class=line><span class=cl>interface gpon_olt-1/1/8
+</span></span><span class=line><span class=cl>  onu 1 type iHGU1G3F1P2W pw k0170880gc
+</span></span><span class=line><span class=cl>  onu 2 type iHGU1G3F1P2W pw k068291616
+</span></span><span class=line><span class=cl>  onu 3 type GENERAL1FE pw 7526459qwc
+</span></span><span class=line><span class=cl>  onu 4 type iHGU1G3F1P2W pw n772099322
+</span></span><span class=line><span class=cl>  onu 5 type iHGU1G3F1P2W pw v0058831ak
+</span></span><span class=line><span class=cl>  onu 6 type iHGU1G3F1P2W pw t4201806nb
+</span></span><span class=line><span class=cl>  onu 7 type iHGU1G3F1P2W pw s7110294r1
+</span></span><span class=line><span class=cl>  onu 8 type iHGU1G3F1P2W pw s0383435np
+</span></span><span class=line><span class=cl>  onu 9 type iHGU1G3F1P2W pw s355464371
+</span></span><span class=line><span class=cl>  onu 10 type iHGU1G3F1P2W pw t8362730ky
+</span></span><span class=line><span class=cl>  onu 11 type iHGU1G3F1P2W pw r549522394
+</span></span><span class=line><span class=cl>  onu 12 type GENERAL1FE pw a56759276a
+</span></span><span class=line><span class=cl>...省略
+</span></span><span class=line><span class=cl>  resource-id-assign-mode mode2
+</span></span><span class=line><span class=cl>$
+</span></span><span class=line><span class=cl>!&lt;/xpon&gt;
+</span></span><span class=line><span class=cl>!&lt;MSAN&gt;
+</span></span><span class=line><span class=cl>interface gpon_olt-1/1/8
+</span></span><span class=line><span class=cl>  no shutdown
+</span></span><span class=line><span class=cl>$
+</span></span><span class=line><span class=cl>!&lt;/MSAN&gt;
+</span></span></code></pre></td></tr></table></div></div><h3 id=python脚本>python脚本</h3><h4 id=识别割接表中c600的pon口>识别割接表中C600的PON口</h4><blockquote><p>割接表</p></blockquote><div class=table-wrapper><table><thead><tr><th style=text-align:left>原olt端口</th><th style=text-align:left>老olt名称</th><th style=text-align:left>老端口</th><th style=text-align:left>新olt端口</th><th style=text-align:left>新olt名称</th><th style=text-align:left>新端口</th><th style=text-align:right>拨号vlan</th><th style=text-align:right>新703内层</th><th style=text-align:right>HGU管理</th><th style=text-align:right>组播vlan</th></tr></thead><tbody><tr><td style=text-align:left>宁波市慈溪区掌起工业区2汇聚机房-OLT45-00-02-GPBD-PON2</td><td style=text-align:left>宁波市慈溪区掌起工业区2汇聚机房-OLT45</td><td style=text-align:left>0/2/2</td><td style=text-align:left>宁波市慈溪市掌起万安桥节点-3-OLT289-ZTE-C600-1-1-GFBT-XGPON融合4</td><td style=text-align:left>宁波市慈溪市掌起万安桥节点-3-OLT289-ZTE-C600</td><td style=text-align:left>1/1/4</td><td style=text-align:right>1111</td><td style=text-align:right>3333</td><td style=text-align:right>333</td><td style=text-align:right>2222</td></tr><tr><td style=text-align:left>宁波市慈溪区掌起工业区2汇聚机房-OLT45-00-02-GPBD-PON3</td><td style=text-align:left>宁波市慈溪区掌起工业区2汇聚机房-OLT45</td><td style=text-align:left>0/2/3</td><td style=text-align:left>宁波市慈溪区掌起万安桥2接 入机房-OLT182-00-03-GPBD-PON0</td><td style=text-align:left>宁波市慈溪区掌起万安桥2接入机房-OLT182</td><td style=text-align:left>0/3/0</td><td style=text-align:right>1111</td><td style=text-align:right>3333</td><td style=text-align:right>333</td><td style=text-align:right>2222</td></tr><tr><td style=text-align:left>宁波市慈溪区掌起工业区3汇聚机房-OLT84-00-12-GPBD-PON2</td><td style=text-align:left>宁波市慈溪区掌起工业区3汇聚机房-OLT84</td><td style=text-align:left>0/12/2</td><td style=text-align:left>宁波市慈溪区掌起万安桥2接 入机房-OLT182-00-03-GPBD-PON1</td><td style=text-align:left>宁波市慈溪区掌起万安桥2接入机房-OLT182</td><td style=text-align:left>0/3/1</td><td style=text-align:right>1111</td><td style=text-align:right>3333</td><td style=text-align:right>333</td><td style=text-align:right>2222</td></tr><tr><td style=text-align:left>宁波市慈溪区掌起工业区4汇聚机房-OLT89-00-07-GPBD-PON2</td><td style=text-align:left>宁波市慈溪区掌起工业区4汇聚机房-OLT89</td><td style=text-align:left>0/7/2</td><td style=text-align:left>宁波市慈溪市掌起万安桥节点-3-OLT289-ZTE-C600-1-1-GFBT-XGPON融合5</td><td style=text-align:left>宁波市慈溪市掌起万安桥节点-3-OLT289-ZTE-C600</td><td style=text-align:left>1/1/5</td><td style=text-align:right>1111</td><td style=text-align:right>3333</td><td style=text-align:right>333</td><td style=text-align:right>2222</td></tr><tr><td style=text-align:left>宁波市慈溪区掌起工业区2汇聚机房-OLT45-00-05-GPBD-PON0</td><td style=text-align:left>宁波市慈溪区掌起工业区2汇聚机房-OLT45</td><td style=text-align:left>0/5/0</td><td style=text-align:left>宁波市慈溪区掌起万安桥2接 入机房-OLT182-00-03-GPBD-PON2</td><td style=text-align:left>宁波市慈溪区掌起万安桥2接入机房-OLT182</td><td style=text-align:left>0/3/2</td><td style=text-align:right>1111</td><td style=text-align:right>3333</td><td style=text-align:right>333</td><td style=text-align:right>2222</td></tr><tr><td style=text-align:left>宁波市奉化区中兴滨海汇聚机房-OLT92-01-2-GTGH/G-PON8</td><td style=text-align:left>宁波市奉化区中兴滨海汇聚机房-OLT92</td><td style=text-align:left>1/2/8</td><td style=text-align:left>宁波市奉化区FH滨海汇聚-2-OLT126-ZTE-C600-1-1-GFBT-XGPON融合7</td><td style=text-align:left>宁波市奉化区FH滨海汇聚-2-OLT126-ZTE-C600</td><td style=text-align:left>1/1/7</td><td style=text-align:right>1111</td><td style=text-align:right>3333</td><td style=text-align:right>333</td><td style=text-align:right>2222</td></tr><tr><td style=text-align:left>&mldr;.</td><td style=text-align:left>&mldr;.</td><td style=text-align:left>&mldr;.</td><td style=text-align:left>&mldr;.</td><td style=text-align:left>&mldr;.</td><td style=text-align:left>&mldr;.</td><td style=text-align:right>&mldr;.</td><td style=text-align:right>&mldr;.</td><td style=text-align:right>&mldr;.</td><td style=text-align:right>&mldr;.</td></tr></tbody></table></div><blockquote><p>提取C600 PON口
+其中新olt名称中包含"600"字符的都是C600 PON口</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>    <span class=c1># 获取文件路径</span>
+</span></span><span class=line><span class=cl>    <span class=n>f_path</span> <span class=o>=</span> <span class=n>filedialog</span><span class=o>.</span><span class=n>askopenfilename</span><span class=p>(</span><span class=n>title</span><span class=o>=</span><span class=s1>&#39;请选择割接模板名称&#39;</span><span class=p>,</span><span class=n>filetypes</span><span class=o>=</span><span class=p>[(</span><span class=s1>&#39;模板名称&#39;</span><span class=p>,</span> <span class=s1>&#39;*.xlsx&#39;</span><span class=p>),(</span><span class=s1>&#39;All Files&#39;</span><span class=p>,</span> <span class=s1>&#39;*&#39;</span><span class=p>)])</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>获取的文件地址：&#39;</span><span class=p>,</span> <span class=n>f_path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>data_frame</span> <span class=o>=</span> <span class=n>pd</span><span class=o>.</span><span class=n>read_excel</span><span class=p>(</span><span class=n>f_path</span><span class=p>,</span><span class=n>usecols</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;新olt名称&#39;</span><span class=p>,</span><span class=s1>&#39;新端口&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=n>C600port</span> <span class=o>=</span> <span class=n>data_frame</span><span class=p>[</span><span class=n>data_frame</span><span class=p>[</span><span class=s1>&#39;新olt名称&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>str</span><span class=o>.</span><span class=n>contains</span><span class=p>(</span><span class=s1>&#39;600&#39;</span><span class=p>)]</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>表格加载成功，共</span><span class=si>{</span><span class=nb>len</span><span class=p>(</span><span class=n>data_frame</span><span class=p>)</span><span class=si>}</span><span class=s1>个PON口,找到</span><span class=si>{</span><span class=nb>len</span><span class=p>(</span><span class=n>C600port</span><span class=p>)</span><span class=si>}</span><span class=s1>个C600 PON口</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>数据整理
+整理同OLT的端口，同一个OLT只登录一次。</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>    <span class=n>data_list</span> <span class=o>=</span> <span class=n>C600port</span><span class=o>.</span><span class=n>values</span><span class=o>.</span><span class=n>tolist</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>OLT_list</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>data_list</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>OLT_list</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>i</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=n>OLT_list</span> <span class=o>=</span> <span class=p>(</span><span class=nb>list</span><span class=p>(</span><span class=nb>set</span><span class=p>(</span><span class=n>OLT_list</span><span class=p>)))</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>print (data_list)</p><blockquote><p>[[&lsquo;宁波市慈溪市掌起万安桥节点-3-OLT289-ZTE-C600&rsquo;, &lsquo;1/1/4&rsquo;], [&lsquo;宁波市慈溪市掌起万安桥节点-3-OLT289-ZTE-C600&rsquo;, &lsquo;1/1/5&rsquo;], [&lsquo;宁波市奉化区FH滨海汇聚-2-OLT126-ZTE-C600&rsquo;, &lsquo;1/1/7&rsquo;], [&lsquo;宁波市奉化区FH滨海汇聚-2-OLT126-ZTE-C600&rsquo;, &lsquo;1/1/8&rsquo;]]</p></blockquote></blockquote><blockquote><p>print (OLT_list)</p><blockquote><p>[&lsquo;宁波市慈溪市掌起万安桥节点-3-OLT289-ZTE-C600&rsquo;, &lsquo;宁波市奉化区FH滨海汇聚-2-OLT126-ZTE-C600&rsquo;]</p></blockquote></blockquote><h4 id=匹配olt设备的管理ip>匹配OLT设备的管理IP</h4><blockquote><p>读取OLT清单</p></blockquote><blockquote><p>olt清单.xlsx</p></blockquote><div class=table-wrapper><table><thead><tr><th style=text-align:left>网元名称</th><th style=text-align:left>网元类型（主控类型）</th><th style=text-align:left>网元IP地址</th></tr></thead><tbody><tr><td style=text-align:left>宁波市慈溪市掌起万安桥节点-3-OLT289-ZTE-C600</td><td style=text-align:left>C600</td><td style=text-align:left>111.222.333.xxx</td></tr><tr><td style=text-align:left>宁波市奉化区FH滨海汇聚-2-OLT126-ZTE-C600</td><td style=text-align:left>C600</td><td style=text-align:left>111.222.333.xxx</td></tr><tr><td style=text-align:left>宁波市慈溪区58宏坚村3汇聚机房-OLT189</td><td style=text-align:left>MA5800-X17</td><td style=text-align:left>111.222.333.xxx</td></tr><tr><td style=text-align:left>&mldr;.</td><td style=text-align:left>&mldr;.</td><td style=text-align:left>&mldr;</td></tr></tbody></table></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>    <span class=n>f_path2</span> <span class=o>=</span> <span class=n>filedialog</span><span class=o>.</span><span class=n>askopenfilename</span><span class=p>(</span><span class=n>title</span><span class=o>=</span><span class=s1>&#39;请选择OLT清单&#39;</span><span class=p>,</span><span class=n>filetypes</span><span class=o>=</span><span class=p>[(</span><span class=s1>&#39;OLT清单&#39;</span><span class=p>,</span> <span class=s1>&#39;*.xlsx&#39;</span><span class=p>),(</span><span class=s1>&#39;All Files&#39;</span><span class=p>,</span> <span class=s1>&#39;*&#39;</span><span class=p>)])</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>获取的文件地址：&#39;</span><span class=p>,</span> <span class=n>f_path2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>df2</span> <span class=o>=</span> <span class=n>pd</span><span class=o>.</span><span class=n>read_excel</span><span class=p>(</span><span class=n>f_path2</span><span class=p>,</span><span class=n>usecols</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;网元名称&#39;</span><span class=p>,</span><span class=s1>&#39;网元IP地址&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=n>df2</span><span class=o>.</span><span class=n>set_index</span><span class=p>(</span><span class=s1>&#39;网元名称&#39;</span><span class=p>,</span> <span class=n>inplace</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>匹配OLT管理的IP</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>OLT_list</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>df2</span><span class=o>.</span><span class=n>index</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>host</span> <span class=o>=</span> <span class=n>df2</span><span class=o>.</span><span class=n>loc</span><span class=p>[</span><span class=n>i</span><span class=p>,</span> <span class=s1>&#39;网元IP地址&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;找不到</span><span class=si>{</span><span class=n>i</span><span class=si>}</span><span class=s2>对应的ip&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>continue</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=telnet登录设备执行命令>telnet登录设备执行命令</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>        <span class=n>port</span> <span class=o>=</span> <span class=s2>&#34;23&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>tn</span> <span class=o>=</span> <span class=n>telnetlib</span><span class=o>.</span><span class=n>Telnet</span><span class=p>(</span><span class=n>host</span><span class=p>,</span><span class=n>port</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>tn</span><span class=o>.</span><span class=n>read_until</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;Username:&#34;</span><span class=p>,</span><span class=n>timeout</span><span class=o>=</span><span class=mi>1</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>        <span class=n>tn</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>user</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s1>&#39;ascii&#39;</span><span class=p>)</span> <span class=o>+</span> <span class=sa>b</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>tn</span><span class=o>.</span><span class=n>read_until</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;Password:&#34;</span><span class=p>,</span><span class=n>timeout</span><span class=o>=</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>tn</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>password</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s1>&#39;ascii&#39;</span><span class=p>)</span> <span class=o>+</span> <span class=sa>b</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;已成功登陆&#34;</span><span class=p>,</span><span class=n>OLT</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>commands1</span> <span class=o>=</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>                <span class=p>(</span><span class=s1>&#39;enable&#39;</span><span class=p>,</span> <span class=s1>&#39;#&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>                <span class=p>(</span><span class=s1>&#39;terminal length 200&#39;</span><span class=p>,</span> <span class=s1>&#39;(config)#&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>                <span class=p>(</span><span class=s1>&#39;configure terminal&#39;</span><span class=p>,</span> <span class=s1>&#39;(config)#&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>command</span><span class=p>,</span> <span class=n>fim</span> <span class=ow>in</span> <span class=n>commands1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>cmd</span> <span class=o>=</span> <span class=sa>f</span><span class=s1>&#39;</span><span class=si>{</span><span class=n>command</span><span class=si>}</span><span class=se>\n</span><span class=s1>&#39;</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s1>&#39;ascii&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>tn</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>cmd</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>result</span> <span class=o>=</span> <span class=n>tn</span><span class=o>.</span><span class=n>read_until</span><span class=p>(</span><span class=n>fim</span><span class=o>.</span><span class=n>encode</span><span class=p>(),</span><span class=n>timeout</span><span class=o>=</span><span class=mi>2</span><span class=p>)</span><span class=o>.</span><span class=n>decode</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>                <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>data_list</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>i</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>==</span> <span class=n>OLT</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>slot</span> <span class=o>=</span> <span class=n>i</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>                <span class=n>a</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>                <span class=n>result</span> <span class=o>=</span> <span class=n>tn</span><span class=o>.</span><span class=n>read_until</span><span class=p>(</span><span class=n>fim</span><span class=o>.</span><span class=n>encode</span><span class=p>(),</span><span class=n>timeout</span><span class=o>=</span><span class=mi>2</span><span class=p>)</span><span class=o>.</span><span class=n>decode</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>                <span class=n>cmd</span> <span class=o>=</span> <span class=p>((</span><span class=s1>&#39;show running-config-interface gpon_olt-&#39;</span><span class=o>+</span> <span class=n>slot</span> <span class=o>+</span> <span class=s1>&#39;</span><span class=se>\n\n</span><span class=s1>&#39;</span><span class=p>)</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s1>&#39;ascii&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>                <span class=n>tn</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>cmd</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=读取数据和数据清洗>读取数据和数据清洗</h4><p>先通过对字符串进行切片，读取每行中包含&rsquo;GENERAL1FE&rsquo;的字符串判断是否存在SFU设备，如果包含，则提取ONT ID生成脚本。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>               <span class=n>result</span> <span class=o>=</span> <span class=n>tn</span><span class=o>.</span><span class=n>read_until</span><span class=p>(</span><span class=n>fim</span><span class=o>.</span><span class=n>encode</span><span class=p>(),</span><span class=n>timeout</span><span class=o>=</span><span class=mi>2</span><span class=p>)</span><span class=o>.</span><span class=n>decode</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>                <span class=n>lst</span> <span class=o>=</span> <span class=n>result</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>for</span> <span class=n>line</span> <span class=ow>in</span> <span class=n>lst</span><span class=p>:</span> <span class=c1>#依次读取每行  </span>
+</span></span><span class=line><span class=cl>                    <span class=n>line</span> <span class=o>=</span> <span class=n>line</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span> <span class=c1>#去掉每行头尾空白      </span>
+</span></span><span class=line><span class=cl>                    <span class=n>line</span> <span class=o>=</span> <span class=p>[</span><span class=n>x</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span> <span class=k>for</span> <span class=n>x</span> <span class=ow>in</span> <span class=n>line</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39; &#39;</span><span class=p>)</span> <span class=k>if</span> <span class=n>x</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span> <span class=o>!=</span> <span class=s1>&#39;&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>line</span><span class=p>)</span> <span class=o>==</span> <span class=mi>6</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=c1>#识别是否是SFU设备，是则生成脚本写入到txt文件</span>
+</span></span><span class=line><span class=cl>                        <span class=k>if</span> <span class=s1>&#39;GENERAL1FE&#39;</span>  <span class=ow>in</span>  <span class=n>line</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>                            <span class=n>f</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=sa>f</span><span class=s1>&#39;pon-onu-mng gpon_onu-</span><span class=si>{</span><span class=n>slot</span><span class=si>}</span><span class=s1>:</span><span class=si>{</span><span class=n>line</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span><span class=si>}</span><span class=se>\n</span><span class=s1>no service Tl1DefaultCreate</span><span class=se>\n</span><span class=s1>service Tl1DefaultCreate gemport 1 vlan 4</span><span class=se>\n</span><span class=s1>!</span><span class=se>\n\n</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                            <span class=n>a</span> <span class=o>=</span> <span class=n>a</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=n>a</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span> <span class=p>(</span><span class=sa>f</span><span class=s1>&#39;</span><span class=si>{</span><span class=n>slot</span><span class=si>}</span><span class=s1>_抓到</span><span class=si>{</span><span class=n>a</span><span class=si>}</span><span class=s1>个SFU设备&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span> <span class=p>(</span><span class=sa>f</span><span class=s1>&#39;</span><span class=si>{</span><span class=n>slot</span><span class=si>}</span><span class=s1>_没有SFU设备&#39;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>生成脚本</p></blockquote><blockquote><p>240516-134126_宁波市宁海县桥头胡2汇聚站-4-OLT147-ZTE-C600.txt</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>pon-onu-mng gpon_onu-1/6/16:18
+</span></span><span class=line><span class=cl>no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/2/9:4
+</span></span><span class=line><span class=cl>no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/2/10:1
+</span></span><span class=line><span class=cl>no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/2/13:10
+</span></span><span class=line><span class=cl>no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/3/1:4
+</span></span><span class=line><span class=cl>no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/3/3:35
+</span></span><span class=line><span class=cl>no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/3/4:25
+</span></span><span class=line><span class=cl>no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/3/5:12
+</span></span><span class=line><span class=cl>no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/3/5:23
+</span></span><span class=line><span class=cl>no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/3/5:31
+</span></span><span class=line><span class=cl>no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>pon-onu-mng gpon_onu-1/3/6:8
+</span></span><span class=line><span class=cl>no service Tl1DefaultCreate
+</span></span><span class=line><span class=cl>service Tl1DefaultCreate gemport 1 vlan 4
+</span></span><span class=line><span class=cl>!
+</span></span></code></pre></td></tr></table></div></div><h2 id=最后>最后</h2><h3 id=完整的python代码>完整的python代码</h3><blockquote><p>C600vlan4.py</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># -- coding:utf-8 --</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>telnetlib</span><span class=o>,</span><span class=nn>traceback</span><span class=o>,</span><span class=nn>sys</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>pandas</span> <span class=k>as</span> <span class=nn>pd</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>datetime</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>tkinter</span> <span class=k>as</span> <span class=nn>tk</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>tkinter</span> <span class=kn>import</span> <span class=n>filedialog</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 获取选择文件路径</span>
+</span></span><span class=line><span class=cl><span class=c1># 实例化</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>input_test</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>root</span> <span class=o>=</span> <span class=n>tk</span><span class=o>.</span><span class=n>Tk</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>root</span><span class=o>.</span><span class=n>withdraw</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 获取文件路径</span>
+</span></span><span class=line><span class=cl>    <span class=n>f_path</span> <span class=o>=</span> <span class=n>filedialog</span><span class=o>.</span><span class=n>askopenfilename</span><span class=p>(</span><span class=n>title</span><span class=o>=</span><span class=s1>&#39;请选择割接模板名称&#39;</span><span class=p>,</span><span class=n>filetypes</span><span class=o>=</span><span class=p>[(</span><span class=s1>&#39;模板名称&#39;</span><span class=p>,</span> <span class=s1>&#39;*.xlsx&#39;</span><span class=p>),(</span><span class=s1>&#39;All Files&#39;</span><span class=p>,</span> <span class=s1>&#39;*&#39;</span><span class=p>)])</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>获取的文件地址：&#39;</span><span class=p>,</span> <span class=n>f_path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>data_frame</span> <span class=o>=</span> <span class=n>pd</span><span class=o>.</span><span class=n>read_excel</span><span class=p>(</span><span class=n>f_path</span><span class=p>,</span><span class=n>usecols</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;新olt名称&#39;</span><span class=p>,</span><span class=s1>&#39;新端口&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=n>C600port</span> <span class=o>=</span> <span class=n>data_frame</span><span class=p>[</span><span class=n>data_frame</span><span class=p>[</span><span class=s1>&#39;新olt名称&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>str</span><span class=o>.</span><span class=n>contains</span><span class=p>(</span><span class=s1>&#39;600&#39;</span><span class=p>)]</span>
+</span></span><span class=line><span class=cl>    <span class=n>f_path2</span> <span class=o>=</span> <span class=n>filedialog</span><span class=o>.</span><span class=n>askopenfilename</span><span class=p>(</span><span class=n>title</span><span class=o>=</span><span class=s1>&#39;请选择OLT清单&#39;</span><span class=p>,</span><span class=n>filetypes</span><span class=o>=</span><span class=p>[(</span><span class=s1>&#39;OLT清单&#39;</span><span class=p>,</span> <span class=s1>&#39;*.xlsx&#39;</span><span class=p>),(</span><span class=s1>&#39;All Files&#39;</span><span class=p>,</span> <span class=s1>&#39;*&#39;</span><span class=p>)])</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>获取的文件地址：&#39;</span><span class=p>,</span> <span class=n>f_path2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>df2</span> <span class=o>=</span> <span class=n>pd</span><span class=o>.</span><span class=n>read_excel</span><span class=p>(</span><span class=n>f_path2</span><span class=p>,</span><span class=n>usecols</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;网元名称&#39;</span><span class=p>,</span><span class=s1>&#39;网元IP地址&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=n>df2</span><span class=o>.</span><span class=n>set_index</span><span class=p>(</span><span class=s1>&#39;网元名称&#39;</span><span class=p>,</span> <span class=n>inplace</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>user</span> <span class=o>=</span> <span class=s2>&#34;xxx&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>password</span> <span class=o>=</span> <span class=s2>&#34;xxxx&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>log</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>表格加载成功，共</span><span class=si>{</span><span class=nb>len</span><span class=p>(</span><span class=n>data_frame</span><span class=p>)</span><span class=si>}</span><span class=s1>个PON口,找到</span><span class=si>{</span><span class=nb>len</span><span class=p>(</span><span class=n>C600port</span><span class=p>)</span><span class=si>}</span><span class=s1>个C600 PON口</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>data_list</span> <span class=o>=</span> <span class=n>C600port</span><span class=o>.</span><span class=n>values</span><span class=o>.</span><span class=n>tolist</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span> <span class=p>(</span><span class=n>data_list</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>OLT_list</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>data_list</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>OLT_list</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>i</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=n>OLT_list</span> <span class=o>=</span> <span class=p>(</span><span class=nb>list</span><span class=p>(</span><span class=nb>set</span><span class=p>(</span><span class=n>OLT_list</span><span class=p>)))</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span> <span class=p>(</span><span class=n>OLT_list</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>OLT_list</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>df2</span><span class=o>.</span><span class=n>index</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>host</span> <span class=o>=</span> <span class=n>df2</span><span class=o>.</span><span class=n>loc</span><span class=p>[</span><span class=n>i</span><span class=p>,</span> <span class=s1>&#39;网元IP地址&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;找不到</span><span class=si>{</span><span class=n>i</span><span class=si>}</span><span class=s2>对应的ip&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>continue</span>
+</span></span><span class=line><span class=cl><span class=c1>#        host = oltip_dict.get(OLT)</span>
+</span></span><span class=line><span class=cl>        <span class=n>port</span> <span class=o>=</span> <span class=s2>&#34;23&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>tn</span> <span class=o>=</span> <span class=n>telnetlib</span><span class=o>.</span><span class=n>Telnet</span><span class=p>(</span><span class=n>host</span><span class=p>,</span><span class=n>port</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>tn</span><span class=o>.</span><span class=n>read_until</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;Username:&#34;</span><span class=p>,</span><span class=n>timeout</span><span class=o>=</span><span class=mi>1</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>    <span class=c1>#    print(tn.read_until)</span>
+</span></span><span class=line><span class=cl>        <span class=n>tn</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>user</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s1>&#39;ascii&#39;</span><span class=p>)</span> <span class=o>+</span> <span class=sa>b</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>tn</span><span class=o>.</span><span class=n>read_until</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;Password:&#34;</span><span class=p>,</span><span class=n>timeout</span><span class=o>=</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>tn</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>password</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s1>&#39;ascii&#39;</span><span class=p>)</span> <span class=o>+</span> <span class=sa>b</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span> <span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>---------------------&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;已成功登陆&#34;</span><span class=p>,</span><span class=n>OLT</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>commands1</span> <span class=o>=</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>                <span class=p>(</span><span class=s1>&#39;enable&#39;</span><span class=p>,</span> <span class=s1>&#39;#&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>                <span class=p>(</span><span class=s1>&#39;terminal length 200&#39;</span><span class=p>,</span> <span class=s1>&#39;(config)#&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>                <span class=p>(</span><span class=s1>&#39;configure terminal&#39;</span><span class=p>,</span> <span class=s1>&#39;(config)#&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>command</span><span class=p>,</span> <span class=n>fim</span> <span class=ow>in</span> <span class=n>commands1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>cmd</span> <span class=o>=</span> <span class=sa>f</span><span class=s1>&#39;</span><span class=si>{</span><span class=n>command</span><span class=si>}</span><span class=se>\n</span><span class=s1>&#39;</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s1>&#39;ascii&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>tn</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>cmd</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>result</span> <span class=o>=</span> <span class=n>tn</span><span class=o>.</span><span class=n>read_until</span><span class=p>(</span><span class=n>fim</span><span class=o>.</span><span class=n>encode</span><span class=p>(),</span><span class=n>timeout</span><span class=o>=</span><span class=mi>2</span><span class=p>)</span><span class=o>.</span><span class=n>decode</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>now</span> <span class=o>=</span> <span class=n>datetime</span><span class=o>.</span><span class=n>datetime</span><span class=o>.</span><span class=n>now</span><span class=p>()</span><span class=o>.</span><span class=n>strftime</span><span class=p>(</span><span class=s2>&#34;%y%m</span><span class=si>%d</span><span class=s2>-%H%M%S_&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>f</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span> <span class=n>now</span> <span class=o>+</span> <span class=n>OLT</span> <span class=o>+</span><span class=s1>&#39;.txt&#39;</span><span class=p>,</span> <span class=s2>&#34;x&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>data_list</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#        print (i)</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>i</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>==</span> <span class=n>OLT</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>slot</span> <span class=o>=</span> <span class=n>i</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>                <span class=n>a</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#            commands_port = [(f&#39;show running-config-interface gpon_olt-&#39;+ slot ,&#39;(config)#&#39;)]</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#            print (commands_port)</span>
+</span></span><span class=line><span class=cl>                <span class=n>result</span> <span class=o>=</span> <span class=n>tn</span><span class=o>.</span><span class=n>read_until</span><span class=p>(</span><span class=n>fim</span><span class=o>.</span><span class=n>encode</span><span class=p>(),</span><span class=n>timeout</span><span class=o>=</span><span class=mi>2</span><span class=p>)</span><span class=o>.</span><span class=n>decode</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>                <span class=n>cmd</span> <span class=o>=</span> <span class=p>((</span><span class=s1>&#39;show running-config-interface gpon_olt-&#39;</span><span class=o>+</span> <span class=n>slot</span> <span class=o>+</span> <span class=s1>&#39;</span><span class=se>\n\n</span><span class=s1>&#39;</span><span class=p>)</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s1>&#39;ascii&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#            print (cmd)</span>
+</span></span><span class=line><span class=cl>                <span class=n>tn</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>cmd</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#            time.sleep(2)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#            tn.write(f&#39;show running-config-interface gpon_olt-&#39;+ slot)</span>
+</span></span><span class=line><span class=cl>                <span class=n>result</span> <span class=o>=</span> <span class=n>tn</span><span class=o>.</span><span class=n>read_until</span><span class=p>(</span><span class=n>fim</span><span class=o>.</span><span class=n>encode</span><span class=p>(),</span><span class=n>timeout</span><span class=o>=</span><span class=mi>2</span><span class=p>)</span><span class=o>.</span><span class=n>decode</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>                <span class=n>lst</span> <span class=o>=</span> <span class=n>result</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#            print (lst)</span>
+</span></span><span class=line><span class=cl>                <span class=k>for</span> <span class=n>line</span> <span class=ow>in</span> <span class=n>lst</span><span class=p>:</span>                          <span class=c1>#依次读取每行  </span>
+</span></span><span class=line><span class=cl>                    <span class=n>line</span> <span class=o>=</span> <span class=n>line</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span>                             <span class=c1>#去掉每行头尾空白      </span>
+</span></span><span class=line><span class=cl>                    <span class=n>line</span> <span class=o>=</span> <span class=p>[</span><span class=n>x</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span> <span class=k>for</span> <span class=n>x</span> <span class=ow>in</span> <span class=n>line</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39; &#39;</span><span class=p>)</span> <span class=k>if</span> <span class=n>x</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span> <span class=o>!=</span> <span class=s1>&#39;&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#                print (line)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#                    print(len(line))</span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>line</span><span class=p>)</span> <span class=o>==</span> <span class=mi>6</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>                        
+</span></span><span class=line><span class=cl>    <span class=c1>#                    print (line)</span>
+</span></span><span class=line><span class=cl>                        <span class=k>if</span> <span class=s1>&#39;GENERAL1FE&#39;</span>  <span class=ow>in</span>  <span class=n>line</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=c1>#if &#39;HGU4F1P1W&#39;  in  line :</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#                            print (f&#39;pon-onu-mng gpon_onu-{slot}:{line[1]}\nno service Tl1DefaultCreate \nservice Tl1DefaultCreate gemport 1 vlan 4\n!&#39;)</span>
+</span></span><span class=line><span class=cl>                            <span class=n>f</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=sa>f</span><span class=s1>&#39;pon-onu-mng gpon_onu-</span><span class=si>{</span><span class=n>slot</span><span class=si>}</span><span class=s1>:</span><span class=si>{</span><span class=n>line</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span><span class=si>}</span><span class=se>\n</span><span class=s1>no service Tl1DefaultCreate</span><span class=se>\n</span><span class=s1>service Tl1DefaultCreate gemport 1 vlan 4</span><span class=se>\n</span><span class=s1>!</span><span class=se>\n\n</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                            <span class=n>a</span> <span class=o>=</span> <span class=n>a</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=n>a</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span> <span class=p>(</span><span class=sa>f</span><span class=s1>&#39;</span><span class=si>{</span><span class=n>slot</span><span class=si>}</span><span class=s1>_抓到</span><span class=si>{</span><span class=n>a</span><span class=si>}</span><span class=s1>个SFU设备&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span> <span class=p>(</span><span class=sa>f</span><span class=s1>&#39;</span><span class=si>{</span><span class=n>slot</span><span class=si>}</span><span class=s1>_没有SFU设备&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                    <span class=n>log</span> <span class=o>+=</span> <span class=n>result</span>
+</span></span><span class=line><span class=cl>        <span class=n>f</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>tn</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>input_test</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 等待用户按下任意键</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span> <span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>已生成脚本，请核对后自行刷入!&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>input</span><span class=p>(</span><span class=s2>&#34;Press any key to exit...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 关闭程序</span>
+</span></span><span class=line><span class=cl>    <span class=n>sys</span><span class=o>.</span><span class=n>exit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=k>except</span> <span class=ne>Exception</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 这将捕获所有异常，并使用 traceback 打印出错误信息。然后程序将等待用户按下任意键，以便您可以查看错误信息并解决问题。</span>
+</span></span><span class=line><span class=cl>    <span class=n>traceback</span><span class=o>.</span><span class=n>print_exc</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nb>input</span><span class=p>(</span><span class=s2>&#34;Press any key to exit...&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=运行>运行</h3><p><img src=/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3.png width=643 height=470 srcset="/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_480x0_resize_box_3.png 480w, /p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_1024x0_resize_box_3.png 1024w" loading=lazy alt="alt text" class=gallery-image data-flex-grow=136 data-flex-basis=328px></p><h3 id=加上ui界面打包exe>加上ui界面打包exe</h3><p><img src=/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5.png width=892 height=978 srcset="/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_480x0_resize_box_3.png 480w, /p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_1024x0_resize_box_3.png 1024w" loading=lazy alt="alt text" class=gallery-image data-flex-grow=91 data-flex-basis=218px></p><h3 id=相关文件>相关文件</h3><p><a class=link href=https://wwi.lanzoup.com/b0izos0zg target=_blank rel=noopener>https://wwi.lanzoup.com/b0izos0zg</a>
+密码:<code>hpra</code></p></section><footer class=article-footer><section class=article-tags><a href=/tags/python/>Python</a>
+<a href=/tags/gpon/>Gpon</a>
+<a href=/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/>自动化</a>
+<a href=/tags/%E6%95%B0%E9%80%9A/>数通</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hugo-theme-stack.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2024 chao</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.26.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
