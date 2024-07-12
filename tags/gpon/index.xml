@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Gpon on chao blog</title><link>https://blog.331997.xyz/tags/gpon/</link><description>Recent content in Gpon on chao blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>chao</copyright><lastBuildDate>Thu, 04 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.331997.xyz/tags/gpon/index.xml" rel="self" type="application/rss+xml"/><item><title>批量修改错误数据</title><link>https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/</link><pubDate>Thu, 04 Jul 2024 00:00:00 +0000</pubDate><guid>https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/</guid><description>&lt;h2 id="问题">问题
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Gpon on chao blog</title><link>https://blog-wine-eta-40.vercel.app/tags/gpon/</link><description>Recent content in Gpon on chao blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>chao</copyright><lastBuildDate>Thu, 04 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog-wine-eta-40.vercel.app/tags/gpon/index.xml" rel="self" type="application/rss+xml"/><item><title>批量修改错误数据</title><link>https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/</link><pubDate>Thu, 04 Jul 2024 00:00:00 +0000</pubDate><guid>https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/</guid><description>&lt;h2 id="问题">问题
 &lt;/h2>&lt;p>割接时资管平台下发的网管数据，ONT配置缺少部分字段，会导致中兴C600 OLT上SFU设备用户mac起不来，无法正常上网引起投诉。&lt;/p>
 &lt;h3 id="下发的ont数据">下发的ONT数据
 &lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
@@ -76,10 +76,10 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>修改后SFU设备能正常获取到MAC，正常上网。
-&lt;img src="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4.png"
+&lt;img src="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4.png"
 width="571"
 height="277"
-srcset="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_480x0_resize_box_3.png 480w, https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_1024x0_resize_box_3.png 1024w"
+srcset="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_480x0_resize_box_3.png 480w, https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="alt text"
 class="gallery-image"
@@ -837,10 +837,10 @@ data-flex-basis="494px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="运行">运行
-&lt;/h3>&lt;p>&lt;img src="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3.png"
+&lt;/h3>&lt;p>&lt;img src="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3.png"
 width="643"
 height="470"
-srcset="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_480x0_resize_box_3.png 480w, https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_1024x0_resize_box_3.png 1024w"
+srcset="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_480x0_resize_box_3.png 480w, https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="alt text"
 class="gallery-image"
@@ -848,10 +848,10 @@ data-flex-grow="136"
 data-flex-basis="328px"
 >&lt;/p>
 &lt;h3 id="加上ui界面打包exe">加上ui界面打包exe
-&lt;/h3>&lt;p>&lt;img src="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5.png"
+&lt;/h3>&lt;p>&lt;img src="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5.png"
 width="892"
 height="978"
-srcset="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_480x0_resize_box_3.png 480w, https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_1024x0_resize_box_3.png 1024w"
+srcset="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_480x0_resize_box_3.png 480w, https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="alt text"
 class="gallery-image"
