@@ -1,0 +1,2551 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="项目 现网中在使用的设备分别为ZTE C300、ZTE C600、HUAWEI MA5680、HUAWEI MA5800，每次PON口割接有大量割接集"><title>割接集客数据批量生成</title>
+<link rel=canonical href=https://blog.331997.xyz/p/%E5%89%B2%E6%8E%A5%E9%9B%86%E5%AE%A2%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E7%94%9F%E6%88%90/><link rel=stylesheet href=/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css><meta property='og:title' content="割接集客数据批量生成"><meta property='og:description' content="项目 现网中在使用的设备分别为ZTE C300、ZTE C600、HUAWEI MA5680、HUAWEI MA5800，每次PON口割接有大量割接集"><meta property='og:url' content='https://blog.331997.xyz/p/%E5%89%B2%E6%8E%A5%E9%9B%86%E5%AE%A2%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E7%94%9F%E6%88%90/'><meta property='og:site_name' content='chao blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Python'><meta property='article:tag' content='Gpon'><meta property='article:tag' content='自动化'><meta property='article:tag' content='数通'><meta property='article:published_time' content='2024-07-12T00:00:00+00:00'><meta property='article:modified_time' content='2024-07-12T00:00:00+00:00'><meta name=twitter:title content="割接集客数据批量生成"><meta name=twitter:description content="项目 现网中在使用的设备分别为ZTE C300、ZTE C600、HUAWEI MA5680、HUAWEI MA5800，每次PON口割接有大量割接集"></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_3.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🎉</span></figure><div class=site-meta><h1 class=site-name><a href=/>chao blog</a></h1><h2 class=site-description>无限进步.✊</h2></div></header><ol class=menu-social><li><a href=https://github.com/gaucnet/ target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com target=_blank title=Twitter rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=/%E5%85%B3%E4%BA%8E/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/links/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Links</span></a></li><li class=menu-bottom-section><ol class=menu><li id=i18n-switch><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language title=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://blog.331997.xyz/ selected>中文</option><option value=https://blog.331997.xyz/en/>English</option></select></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#项目>项目</a><ol><li><a href=#vlan规划>vlan规划</a></li><li><a href=#show-vlan-summary>show vlan summary</a></li></ol></li><li><a href=#c300>C300</a><ol><li><a href=#互联网>互联网</a></li></ol></li><li><a href=#zte-to-zte>zte to zte</a><ol><li><a href=#c300-to-c300>C300 to C300</a></li><li><a href=#c300-to-c600>C300 to C600</a></li><li><a href=#c600-to-c300>C600 to C300</a></li><li><a href=#c600-to-c600>C600 to C600</a></li></ol></li><li><a href=#zte-to-huawei>zte to huawei</a><ol><li><a href=#c300-to-huawei>C300 to huawei</a></li><li><a href=#c600-to-huawei>C600 to huawei</a></li></ol></li><li><a href=#huawei-to-zte>huawei to zte</a><ol><li><a href=#huawei-to-c300>huawei to C300</a></li><li><a href=#huawei-to-c600>huawei to C600</a></li></ol></li><li><a href=#huawei-to-huawei>huawei to huawei</a></li><li><a href=#参考>参考</a></li><li><a href=#正则表达式>正则表达式</a></li><li><a href=#读取excel>读取excel</a><ol><li><a href=#替换数据>替换数据</a><ol><li><a href=#定义要替换的-vlan-id-和-gpon-口>定义要替换的 VLAN ID 和 GPON 口</a></li><li><a href=#使用正则表达式进行替换>使用正则表达式进行替换</a></li></ol></li><li><a href=#读取olt-vlan>读取olt vlan</a></li></ol></li><li><a href=#获取olt-vlan>获取olt vlan</a><ol><li><a href=#dispaly-vlan-all>dispaly vlan all</a></li></ol></li><li><a href=#巡检vlan>巡检vlan</a></li><li><a href=#读取老数据>读取老数据</a></li><li><a href=#匹配新vlan>匹配新vlan</a><ol><li><a href=#根据源vlan匹配新vlan>根据源vlan匹配新vlan</a></li></ol></li><li><a href=#log>LOG</a><ol><li><a href=#huawei1>HUAWEI1</a><ol><li><a href=#old>old</a></li></ol></li><li><a href=#new>new</a></li><li><a href=#log-1>log</a></li></ol></li><li><a href=#huawei2>HUAWEI2</a><ol><li><a href=#old-1>old</a></li><li><a href=#new-1>new</a></li></ol></li><li><a href=#huawei3>huawei3</a><ol><li><a href=#old-2>old</a></li><li><a href=#new-2>new</a></li></ol></li><li><a href=#huawei4>HUAWEI4</a><ol><li><a href=#old-3>old</a></li><li><a href=#new-3>new</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/p/%E5%89%B2%E6%8E%A5%E9%9B%86%E5%AE%A2%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E7%94%9F%E6%88%90/>割接集客数据批量生成</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Jul 12, 2024</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 24 分钟</time></div></footer></div></header><section class=article-content><h2 id=项目>项目</h2><p>现网中在使用的设备分别为ZTE C300、ZTE C600、HUAWEI MA5680、HUAWEI MA5800，每次PON口割接有大量割接集客数据需要制作，通过python来批量生成。</p><h3 id=vlan规划>vlan规划</h3><div class=table-wrapper><table><thead><tr><th>业务</th><th>vlan范围</th></tr></thead><tbody><tr><td>ONU管理</td><td>256-319</td></tr><tr><td>HGU外层</td><td>321-384</td></tr><tr><td>互联网专线外层</td><td>512-575</td></tr><tr><td>WLAN外层</td><td>576-639</td></tr><tr><td>IMSDHCP外层</td><td>640-703</td></tr><tr><td>监控</td><td>703</td></tr><tr><td>语言</td><td>704</td></tr><tr><td>VPN外层</td><td>896-959</td></tr><tr><td>拨号</td><td>1024-2047</td></tr><tr><td>组播</td><td>2176-2303</td></tr><tr><td>畅享型云专线</td><td>2304-2367</td></tr></tbody></table></div><h3 id=show-vlan-summary>show vlan summary</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>XS_MaoYang_C600(config)# show vlan summary 
+</span></span><span class=line><span class=cl>All created vlan num: 15  
+</span></span><span class=line><span class=cl>Details are following:
+</span></span><span class=line><span class=cl>  1,10,39,300,320,340,531,659,703,784,915,1153
+</span></span><span class=line><span class=cl>2040,2196,2387
+</span></span><span class=line><span class=cl>Hardware operate fail following:
+</span></span></code></pre></td></tr></table></div></div><h2 id=c300>C300</h2><h3 id=互联网>互联网</h3><blockquote><p>show running-config interface gpon-onu_1/4/7:18</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>NH_ZongHeLou_C300(config)#show running-config interface gpon-onu_1/4/7:18
+</span></span><span class=line><span class=cl>interface gpon-onu_1/4/7:18
+</span></span><span class=line><span class=cl>  name 宁波市宁海县宁海馨珑美容院-瑞斯康达ONU0001BIZ
+</span></span><span class=line><span class=cl>  sn-bind disable
+</span></span><span class=line><span class=cl>  tcont 1 name Tl1DefaultCreate allocid 270 profile JPKD_100M
+</span></span><span class=line><span class=cl>  gemport 1 name Tl1OpVlan4034 portid 161 tcont 1
+</span></span><span class=line><span class=cl>  gemport 1 traffic-limit downstream JPKD_100M 
+</span></span><span class=line><span class=cl>  gemport 2 name Tl1OpVlan4039 portid 162 tcont 1
+</span></span><span class=line><span class=cl>  gemport 2 traffic-limit downstream JPKD_100M 
+</span></span><span class=line><span class=cl>  service-port 1 vport 1 user-vlan 4034 vlan 362 
+</span></span><span class=line><span class=cl>  service-port 1 description Tl1OpVlan4034
+</span></span><span class=line><span class=cl>  service-port 2 vport 2 user-vlan 4039 vlan 2050 svlan 516 
+</span></span><span class=line><span class=cl>  service-port 2 description Tl1OpVlan4039
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>end
+</span></span><span class=line><span class=cl>pon-onu-mng gpon-onu_1/4/7:18
+</span></span><span class=line><span class=cl>  service Tl1OpVlan4034 gemport 1 vlan 4034
+</span></span><span class=line><span class=cl>  service Tl1OpVlan4039 gemport 2 vlan 4039
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>pon-onu-mng gpon-onu_1/4/7:18
+</span></span><span class=line><span class=cl>  service Tl1OpVlan4034 gemport 1 vlan 4034
+</span></span><span class=line><span class=cl>  service Tl1OpVlan4039 gemport 2 vlan 4039
+</span></span><span class=line><span class=cl>!
+</span></span><span class=line><span class=cl>NH_ZongHeLou_C300(config)#show onu running config  gpon-onu_1/4/7:18
+</span></span><span class=line><span class=cl>pon-onu-mng gpon-onu_1/4/7:18
+</span></span><span class=line><span class=cl>  service Tl1OpVlan4034 gemport 1 vlan 4034
+</span></span><span class=line><span class=cl>  service Tl1OpVlan4039 gemport 2 vlan 4039
+</span></span><span class=line><span class=cl>!
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>show service-port interface gpon-onu_1/2/8:2</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>NH_ZongHeLou_C300(config)#show service-port interface  gpon-onu_1/2/8:2
+</span></span><span class=line><span class=cl>Interface gpon-onu_1/2/8:2
+</span></span><span class=line><span class=cl>Sport Vport BeginVid EndVid OuterVid InnerVid UserPrio Etype  Vlan Cos SVlan SCos Tls  TlsSVid  Mode PacketFilter Ingress Egress  Queue Status Enable
+</span></span><span class=line><span class=cl>-----------------------------------------------------------------------------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>1     1     4034     4034   --       --       --       --     325  --  --    --   --   --       1:1  --           --      --      --    OK     YES 
+</span></span><span class=line><span class=cl>2     2     4031     4031   --       --       --       --     134  --  1480  --   --   --       1:1  --           --      --      --    OK     YES 
+</span></span><span class=line><span class=cl>Sport total number:
+</span></span><span class=line><span class=cl>2
+</span></span></code></pre></td></tr></table></div></div><p>源设备 源端口 新设备 新端口
+设备1 端口1 设备4 端口4
+设备1 端口1 设备4 端口5
+设备1 端口2 设备4 端口6
+设备2 端口3 设备4 端口7</p><p>这是个excel表，需要通过python程序打印成
+{&lsquo;设备1&rsquo;: [{&lsquo;端口1&rsquo;:[&lsquo;设备4&rsquo;,&lsquo;端口4&rsquo;],[&lsquo;设备4&rsquo;,&lsquo;端口5&rsquo;]},{&lsquo;端口2&rsquo;:[&lsquo;设备4&rsquo;,&lsquo;端口6&rsquo;]}],&lsquo;设备2&rsquo;: [{&lsquo;端口3&rsquo;:[&lsquo;设备4&rsquo;,&lsquo;端口7&rsquo;]}]}</p><p>{&lsquo;宁波市鄞州区中兴陈婆渡接入机房-OLT01&rsquo;: [&lsquo;1/4/7-18&rsquo;], &lsquo;宁波市鄞州区中兴陈婆渡接入机房-OLT02&rsquo;: [&lsquo;1/6/1-29&rsquo;]}</p><h2 id=zte-to-zte>zte to zte</h2><h3 id=c300-to-c300>C300 to C300</h3><h3 id=c300-to-c600>C300 to C600</h3><h3 id=c600-to-c300>C600 to C300</h3><h3 id=c600-to-c600>C600 to C600</h3><h2 id=zte-to-huawei>zte to huawei</h2><h3 id=c300-to-huawei>C300 to huawei</h3><h3 id=c600-to-huawei>C600 to huawei</h3><h2 id=huawei-to-zte>huawei to zte</h2><h3 id=huawei-to-c300>huawei to C300</h3><h3 id=huawei-to-c600>huawei to C600</h3><h2 id=huawei-to-huawei>huawei to huawei</h2><h2 id=参考>参考</h2><h2 id=正则表达式>正则表达式</h2><p>当然，以下是一些常见的正则表达式示例，以及它们的用途：
+匹配一个或多个字母、数字或下划线：\w+
+示例：匹配单词
+匹配一个或多个非空白字符：\S+
+示例：匹配非空白单词或短语
+匹配一个或多个数字：\d+
+示例：匹配数字序列
+匹配一个或多个空白字符：\s+
+示例：匹配空格、制表符或换行符
+匹配一个或多个字母：[a-zA-Z]+
+示例：匹配英文单词
+匹配一个或多个小写字母：[a-z]+
+示例：匹配小写英文单词
+匹配一个或多个大写字母：[A-Z]+
+示例：匹配大写英文单词
+匹配一个或多个数字和小数点：\d+(.\d+)?
+示例：匹配浮点数
+匹配一个或多个空格：[ ]+
+示例：匹配一个或多个空格字符
+匹配一个或多个特定字符（例如逗号、句号等）：[,.]+
+示例：匹配逗号或句号序列
+匹配一个或多个非特定字符（例如不是逗号、句号等）：[^,.]+
+示例：匹配不包含逗号或句号的文本
+这些是一些基本的正则表达式示例，你可以根据具体的需求来调整和扩展这些表达式。在实际使用中，根据需要选择适合的正则表达式来匹配文本模式。</p><h2 id=读取excel>读取excel</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>#这是使用语法,模糊匹配
+</span></span><span class=line><span class=cl>df[ df[&#39;通信名称&#39;].str.contains(&#39;联通|移动|小灵通|电信&#39;)]
+</span></span><span class=line><span class=cl>#这一种方法不是匹配，而是等于后面列表中的值，要注意区别
+</span></span><span class=line><span class=cl>df[ df[&#39;通信名称&#39;].isin([&#39;联通&#39;,&#39;移动&#39;,&#39;小灵通&#39;,&#39;电信&#39;])]
+</span></span><span class=line><span class=cl>#条件是多个
+</span></span><span class=line><span class=cl>df[ df[&#39;通信名称&#39;].str.contains(&#39;联通|移动|小灵通|电信&#39;) | df[&#39;通信备注&#39;].str.contains(&#39;公告|活动|提示|优惠&#39;) ]
+</span></span><span class=line><span class=cl>或者这样写
+</span></span><span class=line><span class=cl>df[df[&#34;col1&#34;].str.contains(&#39;this|that&#39;)==False and df[&#34;col2&#34;].str.contains(&#39;foo|bar&#39;)==True]
+</span></span></code></pre></td></tr></table></div></div><h3 id=替换数据>替换数据</h3><p>要替换文本中的 VLAN ID 和 GPON 口，你可以使用正则表达式进行匹配和替换。以下是一个示例代码：
+python
+Copy code
+import re
+text = &ldquo;&ldquo;&ldquo;service-port 1671 vlan 526 gpon 0/4/5 ont 4 gemport 1 multi-service user-vlan 4 tag-transform translate-and-add inner-vlan 2 inbound traffic-table index 18
+outbound traffic-table index 10"&rdquo;&rdquo;</p><h4 id=定义要替换的-vlan-id-和-gpon-口>定义要替换的 VLAN ID 和 GPON 口</h4><p>new_vlan_id = &ldquo;NEW_VLAN_ID&rdquo;
+new_gpon_port = &ldquo;NEW_GPON_PORT&rdquo;</p><h4 id=使用正则表达式进行替换>使用正则表达式进行替换</h4><p>new_text = re.sub(r&rsquo;vlan\s+\d+&rsquo;, f&rsquo;vlan {new_vlan_id}&rsquo;, text)
+new_text = re.sub(r&rsquo;gpon\s+\S+&rsquo;, f&rsquo;gpon {new_gpon_port}&rsquo;, new_text)
+print(new_text)</p><h3 id=读取olt-vlan>读取olt vlan</h3><h2 id=获取olt-vlan>获取olt vlan</h2><h3 id=dispaly-vlan-all>dispaly vlan all</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>NB-YY-HuBeiXiJieDian-MA5800-OLT199(config)#display  vlan all 
+</span></span><span class=line><span class=cl>{ &lt;cr&gt;|vlanattr&lt;K&gt;|vlantype&lt;E&gt;&lt;mux,standard,smart,super&gt;||&lt;K&gt; }: 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  命令：
+</span></span><span class=line><span class=cl>        display  vlan all
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  VLAN   类型      属性        标准端口数量    业务端口数量  VLAN连接数量
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------
+</span></span><span class=line><span class=cl>     1   smart     common                 8               0             -
+</span></span><span class=line><span class=cl>    12   smart     common                 2               0             -
+</span></span><span class=line><span class=cl>    39   smart     common                 2               0             -
+</span></span><span class=line><span class=cl>   285   smart     common                 2               0             -
+</span></span><span class=line><span class=cl>   320   smart     common                 2               0             -
+</span></span><span class=line><span class=cl>   355   smart     common                 2               1             -
+</span></span><span class=line><span class=cl>   546   smart     stacking               2               0             -
+</span></span><span class=line><span class=cl>   674   smart     stacking               2               0             -
+</span></span><span class=line><span class=cl>   703   smart     stacking               2               0             -
+</span></span><span class=line><span class=cl>   704   smart     stacking               2               0             -
+</span></span><span class=line><span class=cl>   778   smart     stacking               2               0             -
+</span></span><span class=line><span class=cl>   930   smart     stacking               2               0             -
+</span></span><span class=line><span class=cl>  2031   smart     stacking               2               1             -
+</span></span><span class=line><span class=cl>  2040   smart     stacking               2               0             -
+</span></span><span class=line><span class=cl>  2211   smart     stacking               2               0             -
+</span></span><span class=line><span class=cl>  2402   smart     stacking               2               0             -
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  总数: 16
+</span></span></code></pre></td></tr></table></div></div><h2 id=巡检vlan>巡检vlan</h2><h2 id=读取老数据>读取老数据</h2><h2 id=匹配新vlan>匹配新vlan</h2><h3 id=根据源vlan匹配新vlan>根据源vlan匹配新vlan</h3><h2 id=log>LOG</h2><h3 id=huawei1>HUAWEI1</h3><h4 id=old>old</h4><p>display current-configuration ont 0/2/0 0
+display ont profile 0 2 0 0</p><h3 id=new>new</h3><p>display ont-lineprofile gpon profile-name MA561Xnew
+display ont-lineprofile gpon profile-name MA562Xnew</p><h3 id=log-1>log</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span><span class=lnt>230
+</span><span class=lnt>231
+</span><span class=lnt>232
+</span><span class=lnt>233
+</span><span class=lnt>234
+</span><span class=lnt>235
+</span><span class=lnt>236
+</span><span class=lnt>237
+</span><span class=lnt>238
+</span><span class=lnt>239
+</span><span class=lnt>240
+</span><span class=lnt>241
+</span><span class=lnt>242
+</span><span class=lnt>243
+</span><span class=lnt>244
+</span><span class=lnt>245
+</span><span class=lnt>246
+</span><span class=lnt>247
+</span><span class=lnt>248
+</span><span class=lnt>249
+</span><span class=lnt>250
+</span><span class=lnt>251
+</span><span class=lnt>252
+</span><span class=lnt>253
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Warning: Telnet is not a secure protocol, and it is recommended to use Stelnet.
+</span></span><span class=line><span class=cl>&gt;&gt;User name:root
+</span></span><span class=line><span class=cl>&gt;&gt;User password:
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T&gt;enable
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T#switch language-mode
+</span></span><span class=line><span class=cl>  当前语言模式已切换到本地语种
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T#config
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#scroll
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display current-configuration ont 0/2/0 0
+</span></span><span class=line><span class=cl>[MA5600V800R018: 8510]
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>[gpon]
+</span></span><span class=line><span class=cl>  &lt;gpon-0/2&gt;
+</span></span><span class=line><span class=cl> interface gpon 0/2
+</span></span><span class=line><span class=cl> ont add 0 0 sn-auth &#34;4857544367B5D430&#34; snmp ont-lineprofile-id 50 desc &#34;宁波市 宁海区综合楼公安局WLAN-ONU0001&#34; 
+</span></span><span class=line><span class=cl> ont optical-alarm-profile 0 0 profile-id 4
+</span></span><span class=line><span class=cl> ont ipconfig 0 0 static ip-address 10.208.97.82 mask 255.255.240.0 vlan 8 
+</span></span><span class=line><span class=cl>priority 0 gateway 10.208.96.1
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>[bbs-config]
+</span></span><span class=line><span class=cl>  &lt;bbs-config&gt;
+</span></span><span class=line><span class=cl> service-port 974 vlan 8 gpon 0/2/0 ont 0 gemport 0 multi-service user-vlan 8 
+</span></span><span class=line><span class=cl>tag-transform transparent inbound traffic-table index 6 outbound traffic-table  index 6
+</span></span><span class=line><span class=cl> service-port 975 vlan 3402 gpon 0/2/0 ont 0 gemport 1 multi-service user-vlan  3402 tag-transform translate inbound traffic-table index 6 outbound 
+</span></span><span class=line><span class=cl>traffic-table index 6
+</span></span><span class=line><span class=cl> service-port 976 vlan 3303 gpon 0/2/0 ont 0 gemport 5 multi-service user-vlan  3303 tag-transform translate inbound traffic-table index 6 outbound 
+</span></span><span class=line><span class=cl>traffic-table index 6
+</span></span><span class=line><span class=cl> service-port 1017 vlan 3300 gpon 0/2/0 ont 0 gemport 5 multi-service user-vlan 3300 tag-transform translate inbound traffic-table index 6 outbound 
+</span></span><span class=line><span class=cl>traffic-table index 6
+</span></span><span class=line><span class=cl> service-port 6462 vlan 3490 gpon 0/2/0 ont 0 gemport 6 multi-service user-vlan 3490 tag-transform translate inbound traffic-table index 6 outbound 
+</span></span><span class=line><span class=cl>traffic-table index 6
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>return
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display ont profile 0 2 0 0
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  端口 0/ 2/ 0                                                              
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  ONT编号   线路模板名称                      业务模板名称                     
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>        0   MA561Xnew                         -                                
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#
+</span></span><span class=line><span class=cl>Warning: Telnet is not a secure protocol, and it is recommended to use Stelnet.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&gt;&gt;User name:root
+</span></span><span class=line><span class=cl>&gt;&gt;User password:
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T&gt;enable
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T#switch language-mode
+</span></span><span class=line><span class=cl>  当前语言模式已切换到本地语种
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T#config
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#scroll
+</span></span><span class=line><span class=cl>{ &lt;cr&gt;|number&lt;U&gt;&lt;10,512&gt; }:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  命令：
+</span></span><span class=line><span class=cl>        scroll 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#display ont-lineprofile gpon profile-name MA561Xnew
+</span></span><span class=line><span class=cl>  失败: 线路模板不存在
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#display ont-lineprofile gpon profile-name MA562Xnew
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  模板编号     :60
+</span></span><span class=line><span class=cl>  模板名称     :MA562Xnew
+</span></span><span class=line><span class=cl>  接入类型     :GPON
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  上行FEC开关  :去使能 
+</span></span><span class=line><span class=cl>  OMCC加密开关 :关闭
+</span></span><span class=line><span class=cl>  QoS模式      :PQ
+</span></span><span class=line><span class=cl>  映射模式     :VLAN
+</span></span><span class=line><span class=cl>  TR069管理模式:去使能
+</span></span><span class=line><span class=cl>  TR069 IP索引 :0
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   0&gt;   DBA模板ID:1
+</span></span><span class=line><span class=cl>  &lt;T-CONT   1&gt;   DBA模板ID:10
+</span></span><span class=line><span class=cl>   &lt;GEM Index 0&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        8     -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        12    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        13    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   2&gt;   DBA模板ID:13
+</span></span><span class=line><span class=cl>   &lt;GEM Index 1&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        4001  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3402  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3303  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        3300  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3490  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        3332  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3489  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        3301  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 3&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3331  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3495  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3494  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        3302  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        1017  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2079  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        102   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        103   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 4&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        101   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3499  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3482  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1029  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3330  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        3096  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        2139  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        2161  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 5&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3079  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        1002  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        1020  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1024  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        190   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2051  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3483  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        1007  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 6&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3052  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3062  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3493  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1006  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3375  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2059  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3401  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        3491  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 7&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3053  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3063  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        2138  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        2163  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        2170  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2172  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        2145  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        2073  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 8&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        104   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        105   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        106   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        107   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        108   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        109   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        110   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        111   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 9&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        112   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        113   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        114   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        115   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        116   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        117   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        118   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        119   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 10&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        120   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        121   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        122   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        123   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        124   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   3&gt;   DBA模板ID:11
+</span></span><span class=line><span class=cl>   &lt;GEM Index 2&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        64    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        32    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        70    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  说明: 通过display traffic table ip命令查看traffic table配置
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  绑定次数     :58
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#
+</span></span><span class=line><span class=cl>****************************************************
+</span></span><span class=line><span class=cl>*                    任 务 完 成                   *
+</span></span><span class=line><span class=cl>****************************************************
+</span></span></code></pre></td></tr></table></div></div><h2 id=huawei2>HUAWEI2</h2><h3 id=old-1>old</h3><p>display current-configuration ont 0/2/0 6
+display ont profile 0 2 0 6</p><h3 id=new-1>new</h3><p>display ont-lineprofile gpon profile-name MA562X-80</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span><span class=lnt>230
+</span><span class=lnt>231
+</span><span class=lnt>232
+</span><span class=lnt>233
+</span><span class=lnt>234
+</span><span class=lnt>235
+</span><span class=lnt>236
+</span><span class=lnt>237
+</span><span class=lnt>238
+</span><span class=lnt>239
+</span><span class=lnt>240
+</span><span class=lnt>241
+</span><span class=lnt>242
+</span><span class=lnt>243
+</span><span class=lnt>244
+</span><span class=lnt>245
+</span><span class=lnt>246
+</span><span class=lnt>247
+</span><span class=lnt>248
+</span><span class=lnt>249
+</span><span class=lnt>250
+</span><span class=lnt>251
+</span><span class=lnt>252
+</span><span class=lnt>253
+</span><span class=lnt>254
+</span><span class=lnt>255
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Warning: Telnet is not a secure protocol, and it is recommended to use Stelnet.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&gt;&gt;User name:root
+</span></span><span class=line><span class=cl>&gt;&gt;User password:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T&gt;enable
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T#switch language-mode
+</span></span><span class=line><span class=cl>  当前语言模式已切换到本地语种
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T#config
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#scroll
+</span></span><span class=line><span class=cl>{ &lt;cr&gt;|number&lt;U&gt;&lt;10,512&gt; }:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  命令：
+</span></span><span class=line><span class=cl>        scroll 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display current-configuration ont 0/2/0 6
+</span></span><span class=line><span class=cl>[MA5600V800R018: 8510]
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>[gpon]
+</span></span><span class=line><span class=cl>  &lt;gpon-0/2&gt;
+</span></span><span class=line><span class=cl> interface gpon 0/2
+</span></span><span class=line><span class=cl> ont add 0 6 sn-auth &#34;48575443EAFD6960&#34; snmp ont-lineprofile-id 80 desc &#34;宁波市 宁海区综合楼宁波得力电子商务有限公司-ONU0002&#34; 
+</span></span><span class=line><span class=cl> ont ipconfig 0 6 static ip-address 10.208.96.224 mask 255.255.240.0 vlan 8 
+</span></span><span class=line><span class=cl>priority 5 gateway 10.208.96.1
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>[bbs-config]
+</span></span><span class=line><span class=cl>  &lt;bbs-config&gt;
+</span></span><span class=line><span class=cl> service-port 5748 vlan 8 gpon 0/2/0 ont 6 gemport 0 multi-service user-vlan 8  tag-transform transparent inbound traffic-table index 6 outbound traffic-table  index 6
+</span></span><span class=line><span class=cl> service-port 5749 vlan 640 gpon 0/2/0 ont 6 gemport 2 multi-service user-vlan  64 tag-transform translate-and-add inner-vlan 10 inbound traffic-table index 6  outbound traffic-table index 6
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>return
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display ont profile 0 2 0 6
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  端口 0/ 2/ 0                                                              
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  ONT编号   线路模板名称                      业务模板名称                     
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>        6   MA562X-80                         -                                
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#
+</span></span><span class=line><span class=cl>Warning: Telnet is not a secure protocol, and it is recommended to use Stelnet.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&gt;&gt;User name:root
+</span></span><span class=line><span class=cl>&gt;&gt;User password:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T&gt;enable
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T#switch language-mode
+</span></span><span class=line><span class=cl>  当前语言模式已切换到本地语种
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T#config
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#scroll
+</span></span><span class=line><span class=cl>{ &lt;cr&gt;|number&lt;U&gt;&lt;10,512&gt; }:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  命令：
+</span></span><span class=line><span class=cl>        scroll 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#display ont-lineprofile gpon profile-name MA562X-80
+</span></span><span class=line><span class=cl>  失败: 线路模板不存在
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#display ont-lineprofile gpon profile-name MA562Xnew
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  模板编号     :60
+</span></span><span class=line><span class=cl>  模板名称     :MA562Xnew
+</span></span><span class=line><span class=cl>  接入类型     :GPON
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  上行FEC开关  :去使能 
+</span></span><span class=line><span class=cl>  OMCC加密开关 :关闭
+</span></span><span class=line><span class=cl>  QoS模式      :PQ
+</span></span><span class=line><span class=cl>  映射模式     :VLAN
+</span></span><span class=line><span class=cl>  TR069管理模式:去使能
+</span></span><span class=line><span class=cl>  TR069 IP索引 :0
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   0&gt;   DBA模板ID:1
+</span></span><span class=line><span class=cl>  &lt;T-CONT   1&gt;   DBA模板ID:10
+</span></span><span class=line><span class=cl>   &lt;GEM Index 0&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        8     -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        12    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        13    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   2&gt;   DBA模板ID:13
+</span></span><span class=line><span class=cl>   &lt;GEM Index 1&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        4001  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3402  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3303  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        3300  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3490  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        3332  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3489  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        3301  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 3&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3331  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3495  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3494  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        3302  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        1017  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2079  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        102   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        103   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 4&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        101   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3499  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3482  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1029  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3330  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        3096  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        2139  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        2161  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 5&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3079  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        1002  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        1020  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1024  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        190   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2051  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3483  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        1007  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 6&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3052  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3062  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3493  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1006  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3375  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2059  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3401  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        3491  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 7&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3053  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3063  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        2138  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        2163  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        2170  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2172  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        2145  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        2073  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 8&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        104   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        105   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        106   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        107   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        108   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        109   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        110   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        111   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 9&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        112   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        113   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        114   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        115   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        116   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        117   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        118   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        119   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 10&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        120   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        121   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        122   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        123   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        124   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   3&gt;   DBA模板ID:11
+</span></span><span class=line><span class=cl>   &lt;GEM Index 2&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        64    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        32    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        70    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  说明: 通过display traffic table ip命令查看traffic table配置
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  绑定次数     :58
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#
+</span></span><span class=line><span class=cl>****************************************************
+</span></span><span class=line><span class=cl>*                    任 务 完 成                   *
+</span></span><span class=line><span class=cl>****************************************************
+</span></span></code></pre></td></tr></table></div></div><h2 id=huawei3>huawei3</h2><h3 id=old-2>old</h3><p>display current-configuration ont 0/2/1 15
+display ont profile 0 2 1 15
+display traffic table ip index 8
+display traffic table ip index 22</p><p>service-port 4031 vlan 896 gpon 0/2/1 ont 15 gemport 4 multi-service user-vlan 102 tag-transform translate-and-add inner-vlan 1072 inner-priority 0 inbound
+traffic-table index 8 outbound traffic-table index 8
+service-port 4036 vlan 896 gpon 0/2/1 ont 15 gemport 5 multi-service user-vlan 103 tag-transform translate-and-add inner-vlan 1073 inner-priority 0 inbound
+traffic-table index 22 outbound traffic-table index 22</p><h3 id=new-2>new</h3><p>display ont-lineprofile gpon profile-name ZQKH_MDU
+display ont-lineprofile gpon profile-name MA562Xnew</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span><span class=lnt>230
+</span><span class=lnt>231
+</span><span class=lnt>232
+</span><span class=lnt>233
+</span><span class=lnt>234
+</span><span class=lnt>235
+</span><span class=lnt>236
+</span><span class=lnt>237
+</span><span class=lnt>238
+</span><span class=lnt>239
+</span><span class=lnt>240
+</span><span class=lnt>241
+</span><span class=lnt>242
+</span><span class=lnt>243
+</span><span class=lnt>244
+</span><span class=lnt>245
+</span><span class=lnt>246
+</span><span class=lnt>247
+</span><span class=lnt>248
+</span><span class=lnt>249
+</span><span class=lnt>250
+</span><span class=lnt>251
+</span><span class=lnt>252
+</span><span class=lnt>253
+</span><span class=lnt>254
+</span><span class=lnt>255
+</span><span class=lnt>256
+</span><span class=lnt>257
+</span><span class=lnt>258
+</span><span class=lnt>259
+</span><span class=lnt>260
+</span><span class=lnt>261
+</span><span class=lnt>262
+</span><span class=lnt>263
+</span><span class=lnt>264
+</span><span class=lnt>265
+</span><span class=lnt>266
+</span><span class=lnt>267
+</span><span class=lnt>268
+</span><span class=lnt>269
+</span><span class=lnt>270
+</span><span class=lnt>271
+</span><span class=lnt>272
+</span><span class=lnt>273
+</span><span class=lnt>274
+</span><span class=lnt>275
+</span><span class=lnt>276
+</span><span class=lnt>277
+</span><span class=lnt>278
+</span><span class=lnt>279
+</span><span class=lnt>280
+</span><span class=lnt>281
+</span><span class=lnt>282
+</span><span class=lnt>283
+</span><span class=lnt>284
+</span><span class=lnt>285
+</span><span class=lnt>286
+</span><span class=lnt>287
+</span><span class=lnt>288
+</span><span class=lnt>289
+</span><span class=lnt>290
+</span><span class=lnt>291
+</span><span class=lnt>292
+</span><span class=lnt>293
+</span><span class=lnt>294
+</span><span class=lnt>295
+</span><span class=lnt>296
+</span><span class=lnt>297
+</span><span class=lnt>298
+</span><span class=lnt>299
+</span><span class=lnt>300
+</span><span class=lnt>301
+</span><span class=lnt>302
+</span><span class=lnt>303
+</span><span class=lnt>304
+</span><span class=lnt>305
+</span><span class=lnt>306
+</span><span class=lnt>307
+</span><span class=lnt>308
+</span><span class=lnt>309
+</span><span class=lnt>310
+</span><span class=lnt>311
+</span><span class=lnt>312
+</span><span class=lnt>313
+</span><span class=lnt>314
+</span><span class=lnt>315
+</span><span class=lnt>316
+</span><span class=lnt>317
+</span><span class=lnt>318
+</span><span class=lnt>319
+</span><span class=lnt>320
+</span><span class=lnt>321
+</span><span class=lnt>322
+</span><span class=lnt>323
+</span><span class=lnt>324
+</span><span class=lnt>325
+</span><span class=lnt>326
+</span><span class=lnt>327
+</span><span class=lnt>328
+</span><span class=lnt>329
+</span><span class=lnt>330
+</span><span class=lnt>331
+</span><span class=lnt>332
+</span><span class=lnt>333
+</span><span class=lnt>334
+</span><span class=lnt>335
+</span><span class=lnt>336
+</span><span class=lnt>337
+</span><span class=lnt>338
+</span><span class=lnt>339
+</span><span class=lnt>340
+</span><span class=lnt>341
+</span><span class=lnt>342
+</span><span class=lnt>343
+</span><span class=lnt>344
+</span><span class=lnt>345
+</span><span class=lnt>346
+</span><span class=lnt>347
+</span><span class=lnt>348
+</span><span class=lnt>349
+</span><span class=lnt>350
+</span><span class=lnt>351
+</span><span class=lnt>352
+</span><span class=lnt>353
+</span><span class=lnt>354
+</span><span class=lnt>355
+</span><span class=lnt>356
+</span><span class=lnt>357
+</span><span class=lnt>358
+</span><span class=lnt>359
+</span><span class=lnt>360
+</span><span class=lnt>361
+</span><span class=lnt>362
+</span><span class=lnt>363
+</span><span class=lnt>364
+</span><span class=lnt>365
+</span><span class=lnt>366
+</span><span class=lnt>367
+</span><span class=lnt>368
+</span><span class=lnt>369
+</span><span class=lnt>370
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Warning: Telnet is not a secure protocol, and it is recommended to use Stelnet.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&gt;&gt;User name:root
+</span></span><span class=line><span class=cl>&gt;&gt;User password:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T&gt;enable
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T#switch language-mode
+</span></span><span class=line><span class=cl>  当前语言模式已切换到本地语种
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T#config
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#scroll
+</span></span><span class=line><span class=cl>{ &lt;cr&gt;|number&lt;U&gt;&lt;10,512&gt; }:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  命令：
+</span></span><span class=line><span class=cl>        scroll 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display current-configuration ont 0/2/1 15
+</span></span><span class=line><span class=cl>[MA5600V800R018: 8510]
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>[gpon]
+</span></span><span class=line><span class=cl>  &lt;gpon-0/2&gt;
+</span></span><span class=line><span class=cl> interface gpon 0/2
+</span></span><span class=line><span class=cl> ont add 1 15 sn-auth &#34;485754438B07999C&#34; snmp ont-lineprofile-id 13 desc &#34;宁波市宁海区综合楼中移铁通有限公司宁波分公司-ONU0001&#34; 
+</span></span><span class=line><span class=cl> ont ipconfig 1 15 static ip-address 10.208.106.24 mask 255.255.240.0 vlan 8 
+</span></span><span class=line><span class=cl>priority 5 gateway 10.208.96.1
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>[bbs-config]
+</span></span><span class=line><span class=cl>  &lt;bbs-config&gt;
+</span></span><span class=line><span class=cl> service-port 433 vlan 8 gpon 0/2/1 ont 15 gemport 1 multi-service user-vlan 8  tag-transform translate
+</span></span><span class=line><span class=cl> service-port 439 vlan 512 gpon 0/2/1 ont 15 gemport 3 multi-service user-vlan  2079 tag-transform translate-and-add inner-vlan 3154 inner-priority 0
+</span></span><span class=line><span class=cl> service-port 483 vlan 640 gpon 0/2/1 ont 15 gemport 2 multi-service user-vlan  32 tag-transform translate-and-add inner-vlan 72 inner-priority 0
+</span></span><span class=line><span class=cl> service-port 4031 vlan 896 gpon 0/2/1 ont 15 gemport 4 multi-service user-vlan 102 tag-transform translate-and-add inner-vlan 1072 inner-priority 0 inbound 
+</span></span><span class=line><span class=cl>traffic-table index 8 outbound traffic-table index 8
+</span></span><span class=line><span class=cl> service-port 4036 vlan 896 gpon 0/2/1 ont 15 gemport 5 multi-service user-vlan 103 tag-transform translate-and-add inner-vlan 1073 inner-priority 0 inbound 
+</span></span><span class=line><span class=cl>traffic-table index 22 outbound traffic-table index 22
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>return
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display ont profile 0 2 1 15
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  端口 0/ 2/ 1                                                              
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  ONT编号   线路模板名称                      业务模板名称                     
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>       15   ZQKH_MDU                          -                                
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display traffic table ip index 8
+</span></span><span class=line><span class=cl>  ----------------------------------------
+</span></span><span class=line><span class=cl>  流量模板索引          : 8
+</span></span><span class=line><span class=cl>  流量模板名称          : Cir_HSI_10M_Pri0
+</span></span><span class=line><span class=cl>  优先级                : 0
+</span></span><span class=line><span class=cl>  优先级拷贝策略        : -
+</span></span><span class=line><span class=cl>  优先级映射模板索引    : -
+</span></span><span class=line><span class=cl>  CTAG优先级映射策略    : -
+</span></span><span class=line><span class=cl>  CTAG优先级映射模板索引: -
+</span></span><span class=line><span class=cl>  CTAG默认优先级        : 0
+</span></span><span class=line><span class=cl>  优先级调度策略        : tag-pri
+</span></span><span class=line><span class=cl>  CIR                   : 10240 kbps
+</span></span><span class=line><span class=cl>  CBS                   : 329680 bytes
+</span></span><span class=line><span class=cl>  PIR                   : 20480 kbps
+</span></span><span class=line><span class=cl>  PBS                   : 657360 bytes
+</span></span><span class=line><span class=cl>  Fix                   : 0 kbps
+</span></span><span class=line><span class=cl>  优先级CAR门限模板     : -
+</span></span><span class=line><span class=cl>  颜色感知模式          : color-blind
+</span></span><span class=line><span class=cl>  颜色策略              : dei
+</span></span><span class=line><span class=cl>  引用状态              : used
+</span></span><span class=line><span class=cl>  E2E优先级映射策略     : -
+</span></span><span class=line><span class=cl>  E2E优先级映射模板索引 : -
+</span></span><span class=line><span class=cl>  E2E默认优先级         : -
+</span></span><span class=line><span class=cl>  黄色WRR权重           : auto
+</span></span><span class=line><span class=cl>  绿色WRR权重           : auto
+</span></span><span class=line><span class=cl>  ----------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display traffic table ip index 8
+</span></span><span class=line><span class=cl>  ----------------------------------------
+</span></span><span class=line><span class=cl>  流量模板索引          : 8
+</span></span><span class=line><span class=cl>  流量模板名称          : Cir_HSI_10M_Pri0
+</span></span><span class=line><span class=cl>  优先级                : 0
+</span></span><span class=line><span class=cl>  优先级拷贝策略        : -
+</span></span><span class=line><span class=cl>  优先级映射模板索引    : -
+</span></span><span class=line><span class=cl>  CTAG优先级映射策略    : -
+</span></span><span class=line><span class=cl>  CTAG优先级映射模板索引: -
+</span></span><span class=line><span class=cl>  CTAG默认优先级        : 0
+</span></span><span class=line><span class=cl>  优先级调度策略        : tag-pri
+</span></span><span class=line><span class=cl>  CIR                   : 10240 kbps
+</span></span><span class=line><span class=cl>  CBS                   : 329680 bytes
+</span></span><span class=line><span class=cl>  PIR                   : 20480 kbps
+</span></span><span class=line><span class=cl>  PBS                   : 657360 bytes
+</span></span><span class=line><span class=cl>  Fix                   : 0 kbps
+</span></span><span class=line><span class=cl>  优先级CAR门限模板     : -
+</span></span><span class=line><span class=cl>  颜色感知模式          : color-blind
+</span></span><span class=line><span class=cl>  颜色策略              : dei
+</span></span><span class=line><span class=cl>  引用状态              : used
+</span></span><span class=line><span class=cl>  E2E优先级映射策略     : -
+</span></span><span class=line><span class=cl>  E2E优先级映射模板索引 : -
+</span></span><span class=line><span class=cl>  E2E默认优先级         : -
+</span></span><span class=line><span class=cl>  黄色WRR权重           : auto
+</span></span><span class=line><span class=cl>  绿色WRR权重           : auto
+</span></span><span class=line><span class=cl>  ----------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display traffic table ip index 22
+</span></span><span class=line><span class=cl>  ----------------------------------------
+</span></span><span class=line><span class=cl>  流量模板索引          : 22
+</span></span><span class=line><span class=cl>  流量模板名称          : HIS_10M
+</span></span><span class=line><span class=cl>  优先级                : 0
+</span></span><span class=line><span class=cl>  优先级拷贝策略        : -
+</span></span><span class=line><span class=cl>  优先级映射模板索引    : -
+</span></span><span class=line><span class=cl>  CTAG优先级映射策略    : -
+</span></span><span class=line><span class=cl>  CTAG优先级映射模板索引: -
+</span></span><span class=line><span class=cl>  CTAG默认优先级        : 0
+</span></span><span class=line><span class=cl>  优先级调度策略        : local-pri
+</span></span><span class=line><span class=cl>  CIR                   : 10240 kbps
+</span></span><span class=line><span class=cl>  CBS                   : 329680 bytes
+</span></span><span class=line><span class=cl>  PIR                   : 10240 kbps
+</span></span><span class=line><span class=cl>  PBS                   : 329680 bytes
+</span></span><span class=line><span class=cl>  Fix                   : 0 kbps
+</span></span><span class=line><span class=cl>  优先级CAR门限模板     : -
+</span></span><span class=line><span class=cl>  颜色感知模式          : color-blind
+</span></span><span class=line><span class=cl>  颜色策略              : dei
+</span></span><span class=line><span class=cl>  引用状态              : used
+</span></span><span class=line><span class=cl>  E2E优先级映射策略     : -
+</span></span><span class=line><span class=cl>  E2E优先级映射模板索引 : -
+</span></span><span class=line><span class=cl>  E2E默认优先级         : -
+</span></span><span class=line><span class=cl>  黄色WRR权重           : auto
+</span></span><span class=line><span class=cl>  绿色WRR权重           : auto
+</span></span><span class=line><span class=cl>  ----------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display traffic table ip index 22
+</span></span><span class=line><span class=cl>  ----------------------------------------
+</span></span><span class=line><span class=cl>  流量模板索引          : 22
+</span></span><span class=line><span class=cl>  流量模板名称          : HIS_10M
+</span></span><span class=line><span class=cl>  优先级                : 0
+</span></span><span class=line><span class=cl>  优先级拷贝策略        : -
+</span></span><span class=line><span class=cl>  优先级映射模板索引    : -
+</span></span><span class=line><span class=cl>  CTAG优先级映射策略    : -
+</span></span><span class=line><span class=cl>  CTAG优先级映射模板索引: -
+</span></span><span class=line><span class=cl>  CTAG默认优先级        : 0
+</span></span><span class=line><span class=cl>  优先级调度策略        : local-pri
+</span></span><span class=line><span class=cl>  CIR                   : 10240 kbps
+</span></span><span class=line><span class=cl>  CBS                   : 329680 bytes
+</span></span><span class=line><span class=cl>  PIR                   : 10240 kbps
+</span></span><span class=line><span class=cl>  PBS                   : 329680 bytes
+</span></span><span class=line><span class=cl>  Fix                   : 0 kbps
+</span></span><span class=line><span class=cl>  优先级CAR门限模板     : -
+</span></span><span class=line><span class=cl>  颜色感知模式          : color-blind
+</span></span><span class=line><span class=cl>  颜色策略              : dei
+</span></span><span class=line><span class=cl>  引用状态              : used
+</span></span><span class=line><span class=cl>  E2E优先级映射策略     : -
+</span></span><span class=line><span class=cl>  E2E优先级映射模板索引 : -
+</span></span><span class=line><span class=cl>  E2E默认优先级         : -
+</span></span><span class=line><span class=cl>  黄色WRR权重           : auto
+</span></span><span class=line><span class=cl>  绿色WRR权重           : auto
+</span></span><span class=line><span class=cl>  ----------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#
+</span></span><span class=line><span class=cl>Warning: Telnet is not a secure protocol, and it is recommended to use Stelnet.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&gt;&gt;User name:root
+</span></span><span class=line><span class=cl>&gt;&gt;User password:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T&gt;enable
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T#switch language-mode
+</span></span><span class=line><span class=cl>  当前语言模式已切换到本地语种
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T#config
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#scroll
+</span></span><span class=line><span class=cl>{ &lt;cr&gt;|number&lt;U&gt;&lt;10,512&gt; }:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  命令：
+</span></span><span class=line><span class=cl>        scroll 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#display ont-lineprofile gpon profile-name ZQKH_MDU
+</span></span><span class=line><span class=cl>  失败: 线路模板不存在
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#display ont-lineprofile gpon profile-name MA562Xnew
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  模板编号     :60
+</span></span><span class=line><span class=cl>  模板名称     :MA562Xnew
+</span></span><span class=line><span class=cl>  接入类型     :GPON
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  上行FEC开关  :去使能 
+</span></span><span class=line><span class=cl>  OMCC加密开关 :关闭
+</span></span><span class=line><span class=cl>  QoS模式      :PQ
+</span></span><span class=line><span class=cl>  映射模式     :VLAN
+</span></span><span class=line><span class=cl>  TR069管理模式:去使能
+</span></span><span class=line><span class=cl>  TR069 IP索引 :0
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   0&gt;   DBA模板ID:1
+</span></span><span class=line><span class=cl>  &lt;T-CONT   1&gt;   DBA模板ID:10
+</span></span><span class=line><span class=cl>   &lt;GEM Index 0&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        8     -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        12    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        13    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   2&gt;   DBA模板ID:13
+</span></span><span class=line><span class=cl>   &lt;GEM Index 1&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        4001  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3402  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3303  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        3300  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3490  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        3332  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3489  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        3301  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 3&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3331  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3495  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3494  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        3302  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        1017  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2079  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        102   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        103   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 4&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        101   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3499  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3482  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1029  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3330  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        3096  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        2139  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        2161  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 5&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3079  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        1002  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        1020  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1024  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        190   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2051  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3483  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        1007  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 6&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3052  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3062  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3493  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1006  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3375  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2059  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3401  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        3491  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 7&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3053  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3063  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        2138  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        2163  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        2170  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2172  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        2145  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        2073  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 8&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        104   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        105   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        106   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        107   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        108   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        109   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        110   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        111   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 9&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        112   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        113   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        114   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        115   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        116   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        117   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        118   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        119   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 10&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        120   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        121   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        122   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        123   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        124   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   3&gt;   DBA模板ID:11
+</span></span><span class=line><span class=cl>   &lt;GEM Index 2&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        64    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        32    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        70    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  说明: 通过display traffic table ip命令查看traffic table配置
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  绑定次数     :66
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#
+</span></span><span class=line><span class=cl>****************************************************
+</span></span><span class=line><span class=cl>*                    任 务 完 成                   *
+</span></span><span class=line><span class=cl>****************************************************
+</span></span></code></pre></td></tr></table></div></div><h2 id=huawei4>HUAWEI4</h2><h3 id=old-3>old</h3><p>display current-configuration ont 0/5/4 2
+display ont profile 0 5 4 2</p><h3 id=new-3>new</h3><p>display ont-lineprofile gpon profile-name MA562Xnew</p><p>ont-lineprofile gpon profile-name MA562Xnew
+gem mapping 10 5 vlan 3054
+gem mapping 10 6 vlan 3064
+commit
+quit
+interface gpon 0/3
+ont add 1 2 sn-auth &ldquo;48575443AACCC342&rdquo; snmp ont-lineprofile-name MA562Xnew desc &ldquo;VIP-&rdquo;
+ont ipconfig 1 2 static ip-address 10.208.97.167 mask 255.255.240.0 vlan 8 priority 0 gateway 10.208.96.1
+quit
+service-port vlan 3054 gpon 0/3/1 ont 2 gemport 10 multi-service user-vlan 3054 tag-transform translate inbound traffic-table index 6 outbound traffic-table index 6
+service-port vlan 3064 gpon 0/3/1 ont 2 gemport 10 multi-service user-vlan 3064 tag-transform translate inbound traffic-table index 6 outbound traffic-table index 6
+service-port vlan 8 gpon 0/3/1 ont 2 gemport 0 multi-service user-vlan 8 tag-transform transparent inbound traffic-table index 6 outbound traffic-table index 6</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span><span class=lnt>230
+</span><span class=lnt>231
+</span><span class=lnt>232
+</span><span class=lnt>233
+</span><span class=lnt>234
+</span><span class=lnt>235
+</span><span class=lnt>236
+</span><span class=lnt>237
+</span><span class=lnt>238
+</span><span class=lnt>239
+</span><span class=lnt>240
+</span><span class=lnt>241
+</span><span class=lnt>242
+</span><span class=lnt>243
+</span><span class=lnt>244
+</span><span class=lnt>245
+</span><span class=lnt>246
+</span><span class=lnt>247
+</span><span class=lnt>248
+</span><span class=lnt>249
+</span><span class=lnt>250
+</span><span class=lnt>251
+</span><span class=lnt>252
+</span><span class=lnt>253
+</span><span class=lnt>254
+</span><span class=lnt>255
+</span><span class=lnt>256
+</span><span class=lnt>257
+</span><span class=lnt>258
+</span><span class=lnt>259
+</span><span class=lnt>260
+</span><span class=lnt>261
+</span><span class=lnt>262
+</span><span class=lnt>263
+</span><span class=lnt>264
+</span><span class=lnt>265
+</span><span class=lnt>266
+</span><span class=lnt>267
+</span><span class=lnt>268
+</span><span class=lnt>269
+</span><span class=lnt>270
+</span><span class=lnt>271
+</span><span class=lnt>272
+</span><span class=lnt>273
+</span><span class=lnt>274
+</span><span class=lnt>275
+</span><span class=lnt>276
+</span><span class=lnt>277
+</span><span class=lnt>278
+</span><span class=lnt>279
+</span><span class=lnt>280
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Warning: Telnet is not a secure protocol, and it is recommended to use Stelnet.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&gt;&gt;User name:root
+</span></span><span class=line><span class=cl>&gt;&gt;User password:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T&gt;enable
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T#switch language-mode
+</span></span><span class=line><span class=cl>  当前语言模式已切换到本地语种
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T#config
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#scroll
+</span></span><span class=line><span class=cl>{ &lt;cr&gt;|number&lt;U&gt;&lt;10,512&gt; }:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  命令：
+</span></span><span class=line><span class=cl>        scroll 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display current-configuration ont 0/5/4 2
+</span></span><span class=line><span class=cl>[MA5600V800R018: 8510]
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>[gpon]
+</span></span><span class=line><span class=cl>  &lt;gpon-0/5&gt;
+</span></span><span class=line><span class=cl> interface gpon 0/5
+</span></span><span class=line><span class=cl> ont add 4 2 sn-auth &#34;48575443AACCC342&#34; snmp ont-lineprofile-id 60 desc &#34;VIP-&#34; 
+</span></span><span class=line><span class=cl> ont ipconfig 4 2 static ip-address 10.208.97.167 mask 255.255.240.0 vlan 8 
+</span></span><span class=line><span class=cl>priority 0 gateway 10.208.96.1
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>[bbs-config]
+</span></span><span class=line><span class=cl>  &lt;bbs-config&gt;
+</span></span><span class=line><span class=cl> service-port 3199 vlan 3054 gpon 0/5/4 ont 2 gemport 7 multi-service user-vlan 3054 tag-transform translate inbound traffic-table index 6 outbound 
+</span></span><span class=line><span class=cl>traffic-table index 6
+</span></span><span class=line><span class=cl> service-port 3200 vlan 3064 gpon 0/5/4 ont 2 gemport 7 multi-service user-vlan 3064 tag-transform translate inbound traffic-table index 6 outbound 
+</span></span><span class=line><span class=cl>traffic-table index 6
+</span></span><span class=line><span class=cl> service-port 3201 vlan 8 gpon 0/5/4 ont 2 gemport 0 multi-service user-vlan 8  tag-transform transparent inbound traffic-table index 6 outbound traffic-table  index 6
+</span></span><span class=line><span class=cl>#
+</span></span><span class=line><span class=cl>return
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#display ont profile 0 5 4 2
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  端口 0/ 5/ 4                                                              
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  ONT编号   线路模板名称                      业务模板名称                     
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>        2   MA562Xnew                         -                                
+</span></span><span class=line><span class=cl>  -----------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NH_ZongHeLou_MA5680T(config)#
+</span></span><span class=line><span class=cl>Warning: Telnet is not a secure protocol, and it is recommended to use Stelnet.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&gt;&gt;User name:root
+</span></span><span class=line><span class=cl>&gt;&gt;User password:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T&gt;enable
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T#switch language-mode
+</span></span><span class=line><span class=cl>  当前语言模式已切换到本地语种
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T#config
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#scroll
+</span></span><span class=line><span class=cl>{ &lt;cr&gt;|number&lt;U&gt;&lt;10,512&gt; }:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  命令：
+</span></span><span class=line><span class=cl>        scroll 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#display ont-lineprofile gpon profile-name MA562Xnew
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  模板编号     :60
+</span></span><span class=line><span class=cl>  模板名称     :MA562Xnew
+</span></span><span class=line><span class=cl>  接入类型     :GPON
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  上行FEC开关  :去使能 
+</span></span><span class=line><span class=cl>  OMCC加密开关 :关闭
+</span></span><span class=line><span class=cl>  QoS模式      :PQ
+</span></span><span class=line><span class=cl>  映射模式     :VLAN
+</span></span><span class=line><span class=cl>  TR069管理模式:去使能
+</span></span><span class=line><span class=cl>  TR069 IP索引 :0
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   0&gt;   DBA模板ID:1
+</span></span><span class=line><span class=cl>  &lt;T-CONT   1&gt;   DBA模板ID:10
+</span></span><span class=line><span class=cl>   &lt;GEM Index 0&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        8     -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        12    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        13    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   2&gt;   DBA模板ID:13
+</span></span><span class=line><span class=cl>   &lt;GEM Index 1&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        4001  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3402  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3303  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        3300  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3490  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        3332  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3489  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        3301  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 3&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3331  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3495  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3494  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        3302  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        1017  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2079  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        102   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        103   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 4&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        101   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3499  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3482  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1029  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3330  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        3096  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        2139  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        2161  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 5&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3079  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        1002  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        1020  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1024  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        190   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2051  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3483  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        1007  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 6&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3052  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3062  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        3493  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        1006  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        3375  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2059  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        3401  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        3491  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 7&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        3053  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        3063  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        2138  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        2163  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        2170  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        2172  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        2145  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        2073  -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 8&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        104   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        105   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        106   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        107   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        108   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        109   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        110   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        111   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 9&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        112   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        113   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        114   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        115   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        116   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    5        117   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    6        118   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    7        119   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   &lt;GEM Index 10&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        120   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        121   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        122   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    3        123   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    4        124   -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  &lt;T-CONT   3&gt;   DBA模板ID:11
+</span></span><span class=line><span class=cl>   &lt;GEM Index 2&gt;
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>   |业务类型:ETH |下行加密:关  |级联属性:关  |GEM-CAR:-    |
+</span></span><span class=line><span class=cl>   |上行优先级:0  |下行优先级:-       |
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    映射索引 VLAN  优先级 端口类型 端口索引 绑定组ID Flow-CAR 透传  
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>    0        64    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    1        32    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>    2        70    -      -        -        -        -        -     
+</span></span><span class=line><span class=cl>   --------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  说明: 通过display traffic table ip命令查看traffic table配置
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>  绑定次数     :73
+</span></span><span class=line><span class=cl>  ------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>NB_NH_ZongHeLou2_MA5680T(config)#
+</span></span><span class=line><span class=cl>****************************************************
+</span></span><span class=line><span class=cl>*                    任 务 完 成                   *
+</span></span><span class=line><span class=cl>****************************************************
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ont-lineprofile gpon profile-name MA562Xnew
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>gem mapping 10 5 vlan 3054
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>gem mapping 10 6 vlan 3064
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>commit
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>quit
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> interface gpon 0/3
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> ont add 1 2 sn-auth &#34;48575443AACCC342&#34; snmp ont-lineprofile-name MA562Xnew desc &#34;VIP-&#34; 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> ont ipconfig 1 2 static ip-address 10.208.97.167 mask 255.255.240.0 vlan 8 priority 0 gateway 10.208.96.1
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>quit
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> service-port vlan 3054 gpon 0/3/1 ont 2 gemport 10 multi-service user-vlan 3054 tag-transform translate inbound traffic-table index 6 outbound traffic-table index 6
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> service-port vlan 3064 gpon 0/3/1 ont 2 gemport 10 multi-service user-vlan 3064 tag-transform translate inbound traffic-table index 6 outbound traffic-table index 6
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> service-port vlan 8 gpon 0/3/1 ont 2 gemport 0 multi-service user-vlan 8 tag-transform transparent inbound traffic-table index 6 outbound traffic-table index 6
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/python/>Python</a>
+<a href=/tags/gpon/>Gpon</a>
+<a href=/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/>自动化</a>
+<a href=/tags/%E6%95%B0%E9%80%9A/>数通</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/><div class=article-details><h2 class=article-title>批量修改错误数据</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2024 chao</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.26.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
