@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>chao blog</title><link>https://blog-wine-eta-40.vercel.app/</link><description>Recent content on chao blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>chao</copyright><lastBuildDate>Thu, 04 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog-wine-eta-40.vercel.app/index.xml" rel="self" type="application/rss+xml"/><item><title>批量修改错误数据</title><link>https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/</link><pubDate>Thu, 04 Jul 2024 00:00:00 +0000</pubDate><guid>https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/</guid><description>&lt;h2 id="问题">问题
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>chao blog</title><link>https://blog.331997.xyz/</link><description>Recent content on chao blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>chao</copyright><lastBuildDate>Thu, 04 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.331997.xyz/index.xml" rel="self" type="application/rss+xml"/><item><title>批量修改错误数据</title><link>https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/</link><pubDate>Thu, 04 Jul 2024 00:00:00 +0000</pubDate><guid>https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/</guid><description>&lt;h2 id="问题">问题
 &lt;/h2>&lt;p>割接时资管平台下发的网管数据，ONT配置缺少部分字段，会导致中兴C600 OLT上SFU设备用户mac起不来，无法正常上网引起投诉。&lt;/p>
 &lt;h3 id="下发的ont数据">下发的ONT数据
 &lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
@@ -76,10 +76,10 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>修改后SFU设备能正常获取到MAC，正常上网。
-&lt;img src="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4.png"
+&lt;img src="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4.png"
 width="571"
 height="277"
-srcset="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_480x0_resize_box_3.png 480w, https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_1024x0_resize_box_3.png 1024w"
+srcset="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_480x0_resize_box_3.png 480w, https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="alt text"
 class="gallery-image"
@@ -837,10 +837,10 @@ data-flex-basis="494px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="运行">运行
-&lt;/h3>&lt;p>&lt;img src="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3.png"
+&lt;/h3>&lt;p>&lt;img src="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3.png"
 width="643"
 height="470"
-srcset="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_480x0_resize_box_3.png 480w, https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_1024x0_resize_box_3.png 1024w"
+srcset="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_480x0_resize_box_3.png 480w, https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="alt text"
 class="gallery-image"
@@ -848,10 +848,10 @@ data-flex-grow="136"
 data-flex-basis="328px"
 >&lt;/p>
 &lt;h3 id="加上ui界面打包exe">加上ui界面打包exe
-&lt;/h3>&lt;p>&lt;img src="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5.png"
+&lt;/h3>&lt;p>&lt;img src="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5.png"
 width="892"
 height="978"
-srcset="https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_480x0_resize_box_3.png 480w, https://blog-wine-eta-40.vercel.app/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_1024x0_resize_box_3.png 1024w"
+srcset="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_480x0_resize_box_3.png 480w, https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="alt text"
 class="gallery-image"
@@ -861,9 +861,9 @@ data-flex-basis="218px"
 &lt;h3 id="相关文件">相关文件
 &lt;/h3>&lt;p>&lt;a class="link" href="https://wwi.lanzoup.com/b0izos0zg" target="_blank" rel="noopener"
 >https://wwi.lanzoup.com/b0izos0zg&lt;/a>
-密码:&lt;code>hpra&lt;/code>&lt;/p></description></item><item><title>Archives</title><link>https://blog-wine-eta-40.vercel.app/archives/</link><pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate><guid>https://blog-wine-eta-40.vercel.app/archives/</guid><description/></item><item><title>About</title><link>https://blog-wine-eta-40.vercel.app/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog-wine-eta-40.vercel.app/about/</guid><description>&lt;p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacinia lorem quis sodales auctor. Donec bibendum odio leo, bibendum iaculis lectus dapibus sit amet. Etiam ut euismod lectus, vel finibus metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer quis vestibulum justo. Duis scelerisque ullamcorper sem, eget congue lorem ultrices mattis. Nam ut mollis tellus, id facilisis turpis. Duis ac egestas mi, a mattis dolor. Curabitur vestibulum est nec tortor hendrerit, vehicula malesuada quam tempor. Duis ornare tortor dapibus, scelerisque est lacinia, aliquet mi. Vivamus convallis malesuada augue ac viverra. Sed molestie erat at sem dapibus porttitor. Vestibulum lacinia, enim id feugiat varius, felis erat sollicitudin nisl, sit amet semper nisi nunc in nisl. Sed dapibus ullamcorper nulla, et molestie lacus accumsan ac.&lt;/p>
+密码:&lt;code>hpra&lt;/code>&lt;/p></description></item><item><title>Archives</title><link>https://blog.331997.xyz/archives/</link><pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate><guid>https://blog.331997.xyz/archives/</guid><description/></item><item><title>About</title><link>https://blog.331997.xyz/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog.331997.xyz/about/</guid><description>&lt;p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacinia lorem quis sodales auctor. Donec bibendum odio leo, bibendum iaculis lectus dapibus sit amet. Etiam ut euismod lectus, vel finibus metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer quis vestibulum justo. Duis scelerisque ullamcorper sem, eget congue lorem ultrices mattis. Nam ut mollis tellus, id facilisis turpis. Duis ac egestas mi, a mattis dolor. Curabitur vestibulum est nec tortor hendrerit, vehicula malesuada quam tempor. Duis ornare tortor dapibus, scelerisque est lacinia, aliquet mi. Vivamus convallis malesuada augue ac viverra. Sed molestie erat at sem dapibus porttitor. Vestibulum lacinia, enim id feugiat varius, felis erat sollicitudin nisl, sit amet semper nisi nunc in nisl. Sed dapibus ullamcorper nulla, et molestie lacus accumsan ac.&lt;/p>
 &lt;p>Fusce auctor in justo nec porta. Aliquam vitae molestie libero. In scelerisque dolor ac est lacinia, at consectetur neque vulputate. Curabitur ornare lorem vitae euismod vestibulum. Sed non arcu nunc. Suspendisse potenti. Maecenas tristique, dui egestas mattis pulvinar, tortor ligula mollis libero, ac ullamcorper erat nibh in augue. Curabitur nunc diam, pretium at porta et, volutpat sit amet ligula. Proin urna lorem, luctus sit amet metus quis, tempus rutrum augue. Phasellus ut nunc dolor.&lt;/p>
-&lt;p>Duis a porta mi, non viverra erat. Nam tincidunt lorem nec sollicitudin laoreet. Mauris faucibus vitae urna ac aliquet. Vivamus rutrum rhoncus tempor. Donec massa diam, molestie sit amet nulla eu, venenatis egestas urna. Vivamus hendrerit elit velit, ut volutpat diam condimentum vel. Etiam ultricies, nulla tincidunt rhoncus placerat, velit nisl gravida velit, mollis vestibulum risus mauris sed lectus.&lt;/p></description></item><item><title>Links</title><link>https://blog-wine-eta-40.vercel.app/links/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog-wine-eta-40.vercel.app/links/</guid><description>&lt;p>To use this feature, add &lt;code>links&lt;/code> section to frontmatter.&lt;/p>
+&lt;p>Duis a porta mi, non viverra erat. Nam tincidunt lorem nec sollicitudin laoreet. Mauris faucibus vitae urna ac aliquet. Vivamus rutrum rhoncus tempor. Donec massa diam, molestie sit amet nulla eu, venenatis egestas urna. Vivamus hendrerit elit velit, ut volutpat diam condimentum vel. Etiam ultricies, nulla tincidunt rhoncus placerat, velit nisl gravida velit, mollis vestibulum risus mauris sed lectus.&lt;/p></description></item><item><title>Links</title><link>https://blog.331997.xyz/links/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog.331997.xyz/links/</guid><description>&lt;p>To use this feature, add &lt;code>links&lt;/code> section to frontmatter.&lt;/p>
 &lt;p>This page&amp;rsquo;s frontmatter:&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -889,4 +889,4 @@ data-flex-basis="218px"
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ts-logo-128.jpg&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>&lt;code>image&lt;/code> field accepts both local and external images.&lt;/p></description></item><item><title>Search</title><link>https://blog-wine-eta-40.vercel.app/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog-wine-eta-40.vercel.app/search/</guid><description/></item><item><title>关于</title><link>https://blog-wine-eta-40.vercel.app/%E5%85%B3%E4%BA%8E/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog-wine-eta-40.vercel.app/%E5%85%B3%E4%BA%8E/</guid><description>&lt;p>This is a test page for i18n support.&lt;/p></description></item></channel></rss>
+&lt;/div>&lt;p>&lt;code>image&lt;/code> field accepts both local and external images.&lt;/p></description></item><item><title>Search</title><link>https://blog.331997.xyz/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog.331997.xyz/search/</guid><description/></item><item><title>关于</title><link>https://blog.331997.xyz/%E5%85%B3%E4%BA%8E/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://blog.331997.xyz/%E5%85%B3%E4%BA%8E/</guid><description>&lt;p>This is a test page for i18n support.&lt;/p></description></item></channel></rss>
