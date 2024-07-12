@@ -76,9 +76,15 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>修改后SFU设备能正常获取到MAC，正常上网。
-&lt;img src="https://blog.331997.xyz/image-4.png"
+&lt;img src="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4.png"
+width="571"
+height="277"
+srcset="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_480x0_resize_box_3.png 480w, https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-4_hu596fcaad41ea2ceff46b1165d23443ba_12927_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="alt text"
+class="gallery-image"
+data-flex-grow="206"
+data-flex-basis="494px"
 >&lt;/p>
 &lt;h2 id="利用python批量修改">利用Python批量修改
 &lt;/h2>&lt;p>通过Python自动识别割接表中C600 PON口及PON口下的SFU设备的id，批量生成修改脚本。&lt;/p>
@@ -831,14 +837,26 @@ alt="alt text"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="运行">运行
-&lt;/h3>&lt;p>&lt;img src="https://blog.331997.xyz/image-3.png"
+&lt;/h3>&lt;p>&lt;img src="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3.png"
+width="643"
+height="470"
+srcset="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_480x0_resize_box_3.png 480w, https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-3_hu8e5f4cb177138604d0af634a5378f7bc_26910_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="alt text"
+class="gallery-image"
+data-flex-grow="136"
+data-flex-basis="328px"
 >&lt;/p>
 &lt;h3 id="加上ui界面打包exe">加上ui界面打包exe
-&lt;/h3>&lt;p>&lt;img src="https://blog.331997.xyz/image-5.png"
+&lt;/h3>&lt;p>&lt;img src="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5.png"
+width="892"
+height="978"
+srcset="https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_480x0_resize_box_3.png 480w, https://blog.331997.xyz/p/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE/image-5_huab343a9ee732ccf95c94678b4c0e3885_49366_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="alt text"
+class="gallery-image"
+data-flex-grow="91"
+data-flex-basis="218px"
 >&lt;/p>
 &lt;h3 id="相关文件">相关文件
 &lt;/h3>&lt;p>&lt;a class="link" href="https://wwi.lanzoup.com/b0izos0zg" target="_blank" rel="noopener"
